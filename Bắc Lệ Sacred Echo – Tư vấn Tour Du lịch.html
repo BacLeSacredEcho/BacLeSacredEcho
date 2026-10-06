@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bắc Lệ Sacred Echo – Tư vấn Tour Du lịch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#faf5df;--surface:#fffdf2;--ink:#17301f;--muted:#55695a;--line:#e0dab8;--primary:#1e6b3a;--primary-ink:#fff;--deep:#12441f;--sky:#8fcfb0;--foam:#eaf1d6;--sun:#c4432b;--sun-ink:#fff;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d1f14;--surface:#143020;--ink:#eaf3e2;--muted:#a9c2ad;--line:#26492f;--primary:#6cc38a;--primary-ink:#0b2413;--deep:#0b2413;--foam:#1a3a26}}
+:root[data-theme="dark"]{--bg:#0d1f14;--surface:#143020;--ink:#eaf3e2;--muted:#a9c2ad;--line:#26492f;--primary:#6cc38a;--primary-ink:#0b2413;--deep:#0b2413;--foam:#1a3a26}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 70px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.6}
+a{color:inherit}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px clamp(16px,4vw,40px);background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.05rem;color:var(--primary);text-decoration:none;line-height:1.2}
+.brand img{width:48px;height:48px;border-radius:50%;border:2px solid var(--primary);flex:none}
+.book{display:inline-flex;align-items:center;gap:8px;background:var(--sun);color:var(--sun-ink);font-weight:700;text-decoration:none;padding:10px 18px;border-radius:999px;box-shadow:0 2px 0 rgba(0,0,0,.15);transition:transform .15s}
+.book:hover{transform:translateY(-1px)}
+.book:focus-visible,.tab:focus-visible,summary:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+.hero{position:relative;overflow:hidden;background:linear-gradient(180deg,#12441f,#1e6b3a 65%,#4aa06c);color:#fff;padding:clamp(40px,8vw,88px) clamp(16px,4vw,40px) clamp(90px,12vw,140px)}
+.hero-in{max-width:1080px;margin:0 auto;position:relative;z-index:1}
+.hero h1{margin:0 0 12px;font-size:clamp(1.9rem,5.5vw,3.4rem);line-height:1.15;font-weight:800;max-width:16ch}
+.hero p{margin:0 0 22px;max-width:52ch;font-size:1.05rem;color:#e3f6fc}
+.facts{display:flex;flex-wrap:wrap;gap:10px}
+.facts span{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:6px 14px;font-size:.92rem}
+.wave{position:absolute;left:0;bottom:-1px;width:100%;height:clamp(50px,8vw,100px);display:block}
+.wave path{fill:var(--bg)}
+.wrap{max-width:1080px;margin:0 auto;padding:8px clamp(16px,4vw,40px) 56px;display:grid;grid-template-columns:300px 1fr;gap:32px;align-items:start}
+.plan{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 76px)}
+.plan h2,.qa h2{margin:0 0 14px;font-size:1.2rem}
+.plan ol{list-style:none;margin:0;padding:0 0 0 18px;border-left:3px solid var(--sky)}
+.plan li{position:relative;padding:0 0 18px 16px}
+.plan li:last-child{padding-bottom:0}
+.plan li::before{content:"";position:absolute;left:-28px;top:6px;width:13px;height:13px;border-radius:50%;background:var(--surface);border:3px solid var(--primary)}
+.plan b{display:block;color:var(--primary)}
+.plan small{color:var(--muted)}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.tab{font:inherit;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:9px 14px;border-radius:10px;font-weight:500}
+.tab[aria-selected="true"]{background:var(--primary);border-color:var(--primary);color:var(--primary-ink);font-weight:700}
+.panel[hidden]{display:none}
+details{background:var(--surface);border:1px solid var(--line);border-radius:12px;margin-bottom:10px;padding:0 16px}
+summary{cursor:pointer;padding:14px 0;font-weight:700;list-style:none;display:flex;justify-content:space-between;gap:12px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--primary);font-size:1.3rem;line-height:1}
+details[open] summary::after{content:"–"}
+details p,details ul{margin:0 0 14px;color:var(--muted)}
+details ul{padding-left:20px}
+.cta{margin-top:22px;background:var(--foam);border:1px solid var(--line);border-radius:14px;padding:18px 20px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.cta .book{box-shadow:none}
+footer{text-align:center;color:var(--muted);font-size:.88rem;padding:0 16px 32px}
+
+.fab{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:20;width:64px;height:64px;padding:0;border-radius:50%;border:3px solid var(--primary);background:var(--surface);cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.28);overflow:hidden}
+.fab img{width:100%;height:100%;display:block}
+.fab:focus-visible,.chat button:focus-visible,.chat input:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+.chat{position:fixed;right:16px;bottom:calc(92px + env(safe-area-inset-bottom,0px));z-index:20;width:min(380px,calc(100vw - 32px));height:min(540px,calc(100dvh - 130px - env(safe-area-inset-bottom,0px)));display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.3);overflow:hidden}
+.chat[hidden]{display:none}
+.ch{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--deep);color:#fff}
+.ch img{width:36px;height:36px;border-radius:50%;border:2px solid #fff}
+.ch b{flex:1;font-size:.95rem;line-height:1.25}
+.ch button{background:none;border:0;color:#fff;font-size:1.4rem;cursor:pointer;line-height:1}
+.cl{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px;background:var(--bg)}
+.m{max-width:86%;padding:8px 12px;border-radius:14px;white-space:pre-wrap;overflow-wrap:anywhere;font-size:.93rem}
+.m.bot{background:var(--foam);align-self:flex-start;border-bottom-left-radius:4px}
+.m.me{background:var(--primary);color:var(--primary-ink);align-self:flex-end;border-bottom-right-radius:4px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips button{font:inherit;font-size:.82rem;cursor:pointer;border:1px solid var(--primary);background:var(--surface);color:var(--primary);border-radius:999px;padding:5px 10px}
+.cf{display:flex;gap:8px;padding:10px;border-top:1px solid var(--line);background:var(--surface)}
+.cf input{flex:1;min-width:0;font:inherit;font-size:16px;padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink)}
+.cf button{font:inherit;font-weight:700;cursor:pointer;border:0;border-radius:10px;padding:0 14px;background:var(--sun);color:var(--sun-ink)}
+.cf button:disabled{opacity:.5;cursor:default}
+@media (max-width:820px){.wrap{grid-template-columns:1fr}.plan{position:static}}
+@media (max-width:420px){.book span.long{display:none}}
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="#"><img src="data:image/jpeg;base64,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" alt="Logo Bắc Lệ Sacred Echo"><span>Bắc Lệ Sacred Echo</span></a>
+  <a class="book" href="https://zalo.me/0900000000" target="_blank" rel="noopener">📞 <span>Đặt Tour Ngay</span></a>
+</header>
+
+<section class="hero" aria-label="Giới thiệu công ty">
+  <div class="hero-in">
+    <h1>Chạm văn hoá, thưởng vị xứ Lạng</h1>
+    <p>Bắc Lệ Sacred Echo mang đến những chuyến đi chạm văn hoá, thưởng vị xứ Lạng, là công ty lữ hành chuyên tour trong nước, với đội ngũ tư vấn giúp bạn chọn lịch trình, khách sạn và mức giá phù hợp nhất cho gia đình, nhóm bạn hoặc đoàn công ty.</p>
+    <div class="facts"><span>Hơn 10 năm kinh nghiệm</span><span>Hướng dẫn viên địa phương</span><span>Tư vấn miễn phí 7h–22h</span></div>
+  </div>
+  <svg class="wave" viewBox="0 0 1200 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,60 C150,100 300,20 450,55 C600,90 750,20 900,50 C1050,80 1120,40 1200,55 L1200,100 L0,100 Z"/></svg>
+</section>
+
+<main class="wrap">
+  <aside class="plan" aria-labelledby="lt">
+    <h2 id="lt">Lịch trình Tour</h2>
+    <p style="margin:0 0 14px;color:var(--muted);font-size:.92rem">Mẫu: Đà Nẵng – Hội An – Bà Nà, 4 ngày 3 đêm</p>
+    <ol>
+      <li><b>Ngày 1</b>Đón sân bay, nhận phòng, tắm biển Mỹ Khê<br><small>Ăn tối hải sản</small></li>
+      <li><b>Ngày 2</b>Bà Nà Hills, Cầu Vàng<br><small>Cáp treo, buffet trưa</small></li>
+      <li><b>Ngày 3</b>Phố cổ Hội An, làng gốm Thanh Hà<br><small>Thả đèn hoa đăng buổi tối</small></li>
+      <li><b>Ngày 4</b>Chợ Hàn, mua quà, tiễn sân bay</li>
+    </ol>
+  </aside>
+
+  <section class="qa" aria-labelledby="qh">
+    <h2 id="qh">Câu hỏi thường gặp khi chọn tour</h2>
+    <div class="tabs" role="tablist" aria-label="Danh mục câu hỏi">
+      <button class="tab" role="tab" aria-selected="true" aria-controls="p0" id="t0">1. Giá Tour &amp; Ưu đãi</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="p1" id="t1">2. Lịch trình chi tiết</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="p2" id="t2">3. Dịch vụ đi kèm (Khách sạn, Ăn uống)</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="p3" id="t3">4. Quy định hủy/đổi vé</button>
+    </div>
+
+    <div class="panel" id="p0" role="tabpanel" aria-labelledby="t0">
+      <details open><summary>Giá tour đã bao gồm những gì?</summary><p>Giá trọn gói gồm vé máy bay khứ hồi, khách sạn, xe đưa đón, vé tham quan theo chương trình, bữa ăn ghi trong lịch trình và bảo hiểm du lịch. Chi phí cá nhân và đồ uống ngoài bữa ăn không nằm trong giá.</p></details>
+      <details><summary>Hiện có ưu đãi nào không?</summary><ul><li>Giảm giá cho khách đặt sớm trước 30 ngày</li><li>Trẻ dưới 5 tuổi miễn phí, từ 5 đến 11 tuổi tính giá ưu đãi</li><li>Ưu đãi riêng cho đoàn từ 10 khách</li></ul></details>
+      <details><summary>Có thể trả góp hoặc đặt cọc không?</summary><p>Bạn chỉ cần đặt cọc trước một phần, số còn lại thanh toán trước ngày khởi hành. Nhân viên sẽ báo mức cọc cụ thể khi tư vấn.</p></details>
+    </div>
+
+    <div class="panel" id="p1" role="tabpanel" aria-labelledby="t1" hidden>
+      <details open><summary>Lịch trình có thể điều chỉnh theo nhu cầu không?</summary><p>Có. Bạn có thể đổi thứ tự điểm tham quan, thêm ngày nghỉ hoặc bỏ điểm không muốn đi. Tour riêng cho gia đình và nhóm bạn được thiết kế theo yêu cầu.</p></details>
+      <details><summary>Lịch trình có nhiều di chuyển, nhiều đi bộ không?</summary><p>Mỗi ngày thường có 1 đến 2 điểm chính, xen kẽ thời gian nghỉ. Với người lớn tuổi hoặc trẻ nhỏ, bên mình sẽ gợi ý phương án nhẹ nhàng hơn.</p></details>
+      <details><summary>Tour có giờ tự do không?</summary><p>Mỗi tour đều có buổi hoặc buổi tối tự do để bạn nghỉ ngơi, mua sắm hoặc khám phá riêng.</p></details>
+    </div>
+
+    <div class="panel" id="p2" role="tabpanel" aria-labelledby="t2" hidden>
+      <details open><summary>Khách sạn tiêu chuẩn mấy sao?</summary><p>Bạn chọn được hạng 3 sao, 4 sao hoặc 5 sao. Phòng đôi hoặc phòng twin, nhận phòng từ 14h và trả phòng trước 12h.</p></details>
+      <details><summary>Bữa ăn gồm những gì?</summary><p>Bữa sáng buffet tại khách sạn, bữa trưa và tối theo thực đơn địa phương. Bên mình nhận xếp món chay hoặc kiêng theo yêu cầu, chỉ cần báo trước khi đặt tour.</p></details>
+      <details><summary>Có xe đưa đón và hướng dẫn viên không?</summary><p>Có xe đời mới đưa đón sân bay và đi suốt hành trình, kèm hướng dẫn viên tiếng Việt am hiểu địa phương.</p></details>
+    </div>
+
+    <div class="panel" id="p3" role="tabpanel" aria-labelledby="t3" hidden>
+      <details open><summary>Hủy tour thì mất bao nhiêu phí?</summary><ul><li>Hủy trước 15 ngày: hoàn phần lớn tiền đã đặt</li><li>Hủy từ 7 đến 14 ngày: mất một phần tiền cọc</li><li>Hủy trong vòng 7 ngày: áp dụng phí theo chi phí đã phát sinh</li></ul></details>
+      <details><summary>Muốn đổi ngày đi thì làm thế nào?</summary><p>Bạn báo sớm nhất có thể để bên mình kiểm tra chỗ trống. Phí đổi ngày phụ thuộc vào thời điểm báo và quy định của hãng bay.</p></details>
+      <details><summary>Trường hợp bất khả kháng như bão hoặc dịch bệnh?</summary><p>Tour sẽ được dời lịch hoặc bảo lưu tiền theo quy định, tránh thiệt hại cho khách.</p></details>
+    </div>
+
+    <div class="cta"><span><b>Chưa chắc nên chọn tour nào?</b><br>Nhắn Zalo để được tư vấn miễn phí.</span>
+      <a class="book" href="https://zalo.me/0900000000" target="_blank" rel="noopener">Đặt Tour Ngay</a></div>
+  </section>
+</main>
+<footer>© Bắc Lệ Sacred Echo · Hotline 0900 000 000</footer>
+
+<script>
+(function(){
+  var tabs=document.querySelectorAll('.tab');
+  tabs.forEach(function(t,i){
+    t.addEventListener('click',function(){
+      tabs.forEach(function(x,j){
+        x.setAttribute('aria-selected',j===i?'true':'false');
+        document.getElementById('p'+j).hidden=j!==i;
+      });
+    });
+  });
+})();
+</script>
+
+<button class="fab" id="fab" hidden aria-label="Chat với trợ lý tư vấn tour"><img alt=""></button>
+<section class="chat" id="chat" hidden aria-label="Trợ lý tư vấn tour">
+  <div class="ch"><img alt=""><b>Trợ lý tư vấn tour<br><small style="font-weight:400">Bắc Lệ Sacred Echo</small></b><button id="cx" aria-label="Đóng">×</button></div>
+  <div class="cl" id="cl" aria-live="polite"></div>
+  <form class="cf" id="cf"><input id="ci" placeholder="Nhập câu hỏi của bạn..." autocomplete="off" aria-label="Câu hỏi"><button id="cs" type="submit">Gửi</button></form>
+</section>
+<script>
+(function(){
+  if(!window.claude||!claude.use)return;
+  var SYS="Bạn là trợ lý tư vấn tour của công ty du lịch Bắc Lệ Sacred Echo (slogan: Chạm Văn Hoá - Thưởng Vị Xứ Lạng). Trả lời bằng tiếng Việt, thân thiện, ngắn gọn (tối đa 5 câu), chỉ dựa trên thông tin dưới đây. Không bịa giá, ngày khởi hành hay chính sách cụ thể; nếu chưa có thông tin, mời khách nhắn Zalo hoặc gọi hotline 0900 000 000 để nhân viên báo chính xác.\n"+
+  "THÔNG TIN: Tour mẫu Đà Nẵng - Hội An - Bà Nà 4 ngày 3 đêm (N1 đón sân bay, tắm biển Mỹ Khê; N2 Bà Nà Hills, Cầu Vàng; N3 phố cổ Hội An, làng gốm Thanh Hà, thả hoa đăng; N4 chợ Hàn, tiễn sân bay). Giá trọn gói gồm vé máy bay khứ hồi, khách sạn, xe đưa đón, vé tham quan, bữa ăn theo lịch trình, bảo hiểm; chưa gồm chi phí cá nhân. Ưu đãi: đặt sớm trước 30 ngày, trẻ dưới 5 tuổi miễn phí, 5-11 tuổi giá ưu đãi, đoàn từ 10 khách có giá riêng; đặt cọc trước, thanh toán phần còn lại trước ngày đi. Lịch trình có thể điều chỉnh, có giờ tự do. Khách sạn 3-5 sao, phòng đôi hoặc twin, nhận phòng 14h, trả 12h; ăn sáng buffet, nhận xếp món chay/kiêng; xe đời mới và hướng dẫn viên tiếng Việt. Hủy: trước 15 ngày hoàn phần lớn tiền, 7-14 ngày mất một phần cọc, trong 7 ngày tính phí theo chi phí phát sinh; đổi ngày tùy chỗ trống và quy định hãng bay; bất khả kháng thì dời lịch hoặc bảo lưu.";
+  var fab=document.getElementById('fab'),chat=document.getElementById('chat'),cl=document.getElementById('cl'),cf=document.getElementById('cf'),ci=document.getElementById('ci'),cs=document.getElementById('cs');
+  var logo=document.querySelector('.brand img');
+  if(logo){fab.querySelector('img').src=logo.src;chat.querySelector('.ch img').src=logo.src;}
+  var hist=[],busy=false,sample=null;
+  function add(cls,t){var d=document.createElement('div');d.className='m '+cls;d.textContent=t;cl.appendChild(d);cl.scrollTop=cl.scrollHeight;return d;}
+  function open(o){chat.hidden=!o;if(o)ci.focus();}
+  function greet(){
+    add('bot','Xin chào! Mình là trợ lý tư vấn tour của Bắc Lệ Sacred Echo. Bạn muốn hỏi về mục nào?');
+    var c=document.createElement('div');c.className='chips';
+    ['Giá tour & ưu đãi','Lịch trình chi tiết','Khách sạn, ăn uống','Hủy/đổi vé'].forEach(function(q){
+      var b=document.createElement('button');b.type='button';b.textContent=q;b.onclick=function(){c.remove();send(q);};c.appendChild(b);});
+    cl.appendChild(c);
+  }
+  async function send(text){
+    if(busy||!text)return;busy=true;cs.disabled=true;
+    add('me',text);hist.push({role:'user',content:text});
+    var bot=add('bot','Đang trả lời...');
+    var turns=hist.slice(-7).map(function(m,i){return i===0?{role:m.role,content:SYS+"\n\nKhách hỏi: "+m.content}:m;});
+    try{
+      var r=await sample(turns,{cache:false,modelTier:'quick',onText:function(o){bot.textContent=o.text;cl.scrollTop=cl.scrollHeight;}});
+      bot.textContent=r.text;hist.push({role:'assistant',content:r.text});
+    }catch(e){
+      hist.pop();
+      bot.textContent=e&&e.code==='not_granted'?'Bạn cần cho phép trợ lý trả lời khi được hỏi. Hoặc nhắn Zalo để được tư vấn trực tiếp.':e&&e.code==='rate_limited'?'Đang có nhiều yêu cầu, bạn thử lại sau ít phút nhé.':'Chưa trả lời được lúc này. Bạn nhắn Zalo giúp mình để nhân viên hỗ trợ nhé.';
+    }
+    busy=false;cs.disabled=false;ci.focus();
+  }
+  cf.addEventListener('submit',function(e){e.preventDefault();var t=ci.value.trim();ci.value='';send(t);});
+  fab.addEventListener('click',function(){open(chat.hidden);});
+  document.getElementById('cx').addEventListener('click',function(){open(false);});
+  claude.use('sample').then(function(s){if(!s)return;sample=s;greet();fab.hidden=false;}).catch(function(){});
+})();
+</script>
+</body>
+</html>
