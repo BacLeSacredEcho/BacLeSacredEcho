@@ -26,8 +26,13 @@ html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 70px)}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.6;transition:background .3s,color .3s}
 a{color:inherit}
 .top{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px clamp(16px,4vw,40px);background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+
+/* Trang trí con lân mini nhún nhảy sinh động */
 .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.05rem;color:var(--primary);text-decoration:none;line-height:1.2}
 .brand img{width:48px;height:48px;border-radius:50%;border:2px solid var(--primary);flex:none;object-fit:cover}
+.mini-lan{display:inline-block;font-size:1.25rem;animation:lanBounce 1.8s infinite ease-in-out}
+.mini-lan.right{animation-delay:0.3s}
+@keyframes lanBounce{0%,100%{transform:translateY(0) rotate(0deg)} 50%{transform:translateY(-4px) rotate(8deg)}}
 
 .nav-controls{display:flex;align-items:center;gap:10px}
 .icon-btn{background:var(--surface);border:1px solid var(--line);color:var(--ink);padding:6px 12px;border-radius:999px;cursor:pointer;font-weight:600;font-size:.88rem;display:inline-flex;align-items:center;gap:4px}
@@ -57,17 +62,35 @@ a{color:inherit}
 
 .gallery-section{margin-bottom:24px}
 .gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
-.gallery-card{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.05);display:flex;flex-direction:column;cursor:pointer;transition:transform 0.2s, box-shadow 0.2s}
+.gallery-card{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.05);display:flex;flex-direction:column;cursor:pointer;transition:transform 0.2s, box-shadow 0.2s;position:relative}
 .gallery-card:hover{transform:scale(1.02);box-shadow:0 4px 12px rgba(0,0,0,.15)}
 .gallery-card img{width:100%;height:180px;object-fit:cover;display:block}
 .gallery-card p{margin:0;padding:12px;font-size:.88rem;font-weight:600;color:var(--ink);text-align:center;background:var(--surface)}
+.badge-album{position:absolute;top:8px;right:8px;background:rgba(0,0,0,0.65);color:#fff;font-size:0.75rem;padding:3px 8px;border-radius:12px;backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,0.3)}
 
-/* Lightbox Modal dùng khi phóng to ảnh */
-.lightbox-modal{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.85);z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity 0.3s ease}
+/* Lightbox Popup Album Ảnh Nâng Cấp (Chuyển slide, tự đổi ảnh sau 10s) */
+.lightbox-modal{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.88);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity 0.3s ease;backdrop-filter:blur(5px)}
 .lightbox-modal.active{opacity:1;pointer-events:auto}
-.lightbox-modal img{max-width:90%;max-height:80vh;border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,0.5);object-fit:contain}
-.lightbox-modal .caption{color:#fff;margin-top:12px;font-size:1.1rem;font-weight:600;text-align:center}
-.lightbox-close{position:absolute;top:20px;right:25px;color:#fff;font-size:2.5rem;font-weight:bold;cursor:pointer;line-height:1}
+.lightbox-content{max-width:850px;width:100%;background:var(--surface);border-radius:16px;overflow:hidden;box-shadow:0 15px 40px rgba(0,0,0,0.5);display:flex;flex-direction:column;align-items:center;position:relative;border:1px solid var(--line);transform:scale(0.9);transition:transform 0.3s ease}
+.lightbox-modal.active .lightbox-content{transform:scale(1)}
+
+.lightbox-slider{position:relative;width:100%;height:380px;background:#000;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.lightbox-slider img{width:100%;height:100%;object-fit:cover;display:block;transition:opacity 0.5s ease-in-out}
+
+.slider-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.5);color:#fff;border:none;width:42px;height:42px;border-radius:50%;cursor:pointer;font-size:1.2rem;display:flex;align-items:center;justify-content:center;transition:all 0.2s;z-index:5}
+.slider-btn:hover{background:var(--primary);color:#fff;scale:1.1}
+.slider-btn.prev{left:12px}
+.slider-btn.next{right:12px}
+
+.slider-dots{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:5}
+.slider-dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.5);cursor:pointer;transition:background 0.3s}
+.slider-dot.active{background:var(--primary);transform:scale(1.2)}
+
+.lightbox-info{padding:18px 20px;text-align:center;width:100%;background:var(--surface);color:var(--ink)}
+.lightbox-title{font-size:1.2rem;font-weight:700;color:var(--primary);margin-bottom:6px}
+.lightbox-desc{font-size:0.92rem;color:var(--muted);line-height:1.5;min-height:48px}
+.lightbox-close{position:absolute;top:12px;right:16px;background:rgba(0,0,0,0.6);color:#fff;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:bold;cursor:pointer;line-height:1;border:none;z-index:10;transition:background 0.2s}
+.lightbox-close:hover{background:var(--sun)}
 
 .tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
 .tab{font:inherit;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:9px 14px;border-radius:10px;font-weight:500}
@@ -117,7 +140,8 @@ footer{text-align:center;color:var(--muted);font-size:.88rem;padding:0 16px 32px
 </head>
 <body>
 <header class="top">
-  <a class="brand" href="#"><img src="https://i.ibb.co/BK69d163/logo.jpg" alt="Logo Bắc Lệ Sacred Echo"><span> BẮC LỆ - SACRED ECHO</span></a>
+  <!-- Trang trí con lân mini trên tên thương hiệu -->
+  <a class="brand" href="#"><img src="https://i.ibb.co/BK69d163/logo.jpg" alt="Logo Bắc Lệ Sacred Echo"><span class="mini-lan">🦁</span><span> BẮC LỆ - SACRED ECHO</span><span class="mini-lan right">🦁</span></a>
   <div class="nav-controls">
     <button class="icon-btn" id="theme-toggle" aria-label="Đổi giao diện">🌙 <span id="theme-text">Tối</span></button>
     <button class="icon-btn" id="lang-toggle" aria-label="Đổi ngôn ngữ">🌐 <span id="lang-text">EN</span></button>
@@ -158,19 +182,30 @@ footer{text-align:center;color:var(--muted);font-size:.88rem;padding:0 16px 32px
     <div class="gallery-section">
       <h2 style="margin:0 0 14px;font-size:1.2rem" data-i18n="gallery_title">Không Gian Văn Hóa & Trải Nghiệm Di Sản</h2>
       <div class="gallery-grid">
-        <div class="gallery-card">
+        <!-- Thẻ 1: Đền Bắc Lệ Album -->
+        <div class="gallery-card" data-album="den_bac_le">
+          <span class="badge-album">3 ảnh 📸</span>
           <img src="https://i.ibb.co/5Wq1qmpT/1791123876230-6054260761147410839-6054260761147410839-c9ba286a07cd2af51ba3390608396979.jpg" alt="Đền Mẫu Bắc Lệ Linh Thiêng">
           <p data-i18n="img_1">Đền Công Đồng Bắc Lệ Linh Thiêng</p>
         </div>
-        <div class="gallery-card">
+
+        <!-- Thẻ 2: Chầu Văn Album -->
+        <div class="gallery-card" data-album="chau_van">
+          <span class="badge-album">3 ảnh 📸</span>
           <img src="https://i.ibb.co/S7V6x1Th/chau-van.jpg" alt="Chầu Văn">
           <p data-i18n="img_2">Nghệ Thuật Hát Chầu Văn</p>
         </div>
-        <div class="gallery-card">
+
+        <!-- Thẻ 3: Gift Box QR Album -->
+        <div class="gallery-card" data-album="gift_box">
+          <span class="badge-album">3 ảnh 📸</span>
           <img src="https://i.ibb.co/m5SYYRBH/Gift-Box.gif" alt="Chuỗi Gift Box Quà Tặng & Nông Sản QR">
           <p data-i18n="img_3">Chuỗi Gift Box Quà Tặng & Nông Sản QR</p>
         </div>
-        <div class="gallery-card">
+
+        <!-- Thẻ 4: Hát Then Album -->
+        <div class="gallery-card" data-album="hat_then">
+          <span class="badge-album">3 ảnh 📸</span>
           <img src="https://i.ibb.co/bMcPBTym/H-t-Then.jpg" alt="Nghệ Thuật Hát Then">
           <p data-i18n="img_4">Nghệ Thuật Hát Then</p>
         </div>
@@ -215,11 +250,25 @@ footer{text-align:center;color:var(--muted);font-size:.88rem;padding:0 16px 32px
 </main>
 <footer>© 2026 BẮC LỆ - SACRED ECHO · Trường THPT Tân Thành, Xã Tân Thành, Tỉnh Lạng Sơn</footer>
 
-<!-- Modal phóng to ảnh -->
+<!-- Modal Popup Album Phóng To Ảnh (Tự động đổi ảnh mỗi 10 giây & Tự do chuyển slide) -->
 <div class="lightbox-modal" id="lightbox-modal">
-  <span class="lightbox-close" id="lightbox-close">&times;</span>
-  <img id="lightbox-img" src="" alt="Ảnh phóng to">
-  <div class="caption" id="lightbox-caption"></div>
+  <div class="lightbox-content">
+    <button class="lightbox-close" id="lightbox-close" aria-label="Đóng">&times;</button>
+    
+    <!-- Khung Slideshow Ảnh -->
+    <div class="lightbox-slider">
+      <button class="slider-btn prev" id="slider-prev">◄</button>
+      <img id="lightbox-img" src="" alt="Hình ảnh di sản">
+      <button class="slider-btn next" id="slider-next">►</button>
+      <div class="slider-dots" id="slider-dots"></div>
+    </div>
+
+    <!-- Thông tin chú thích dưới ảnh -->
+    <div class="lightbox-info">
+      <h3 class="lightbox-title" id="lightbox-title">Tiêu đề ảnh</h3>
+      <div class="lightbox-desc" id="lightbox-desc">Lời mô tả bức ảnh...</div>
+    </div>
+  </div>
 </div>
 
 <button class="fab" id="fab" aria-label="Chat với trợ lý tư vấn Bắc Lệ Sacred Echo"><img src="https://i.ibb.co/BK69d163/logo.jpg" alt="Logo Bot" onerror="this.src='https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=100&q=80'"></button>
@@ -247,7 +296,7 @@ var i18nData = {
     day2_desc: "Tham quan vùng nông sản OCOP → Trải nghiệm bài thuốc tắm lá người Dao, gội đầu dưỡng sinh & ngâm chân thảo dược → Mua sắm bộ sản phẩm Gift Box & Food Box tích hợp QR.",
     day2_meal: "Ăn uống ẩm thực bản địa & Thư giãn",
     gallery_title: "Không Gian Văn Hóa & Trải Nghiệm Di Sản",
-    img_1: "Đền Mẫu Bắc Lệ Linh Thiêng", img_2: "Nghệ Thuật Hát Then, Đàn Tính & Chầu Văn", img_3: "Chuỗi Gift Box Quà Tặng & Nông Sản QR", img_4: "Nghệ Thuật Hát Then",
+    img_1: "Đền Mẫu Bắc Lệ Linh Thiêng", img_2: "Nghệ Thuật Hát Chầu Văn", img_3: "Chuỗi Gift Box Quà Tặng & Nông Sản QR", img_4: "Nghệ Thuật Hát Then",
     info_title: "Nội Dung Cốt Lõi Mô Hình Kinh Doanh (BMC)",
     tab_0: "1. Giải Pháp Giá Trị & Sản Phẩm", tab_1: "2. Phân Khúc Khách Hàng", tab_2: "3. Đối Tác & Tài Nguyên Chính", tab_3: "4. Doanh Thu & Tác Động Xã Hội",
     q1: "Giá trị cốt lõi của dự án Bắc Lệ Sacred Echo là gì?",
@@ -290,7 +339,7 @@ var i18nData = {
     day2_desc: "Visit OCOP local produce spots → Experience Dao herbal bath, wellness shampoo & herbal foot soak → Shop QR-integrated Gift Boxes & Food Boxes.",
     day2_meal: "Local culinary dining & Relaxation",
     gallery_title: "Cultural Space & Heritage Experience Gallery",
-    img_1: "Sacred Bac Le Mother Temple", img_2: "Then Singing, Tinh Lute & Chau Van Rituals", img_3: "QR Heritage Gift Box & Food Box", img_4: "Traditional Then Singing Art",
+    img_1: "Sacred Bac Le Mother Temple", img_2: "Art of Chau Van Rituals", img_3: "QR Heritage Gift Box & Food Box", img_4: "Traditional Then Singing Art",
     info_title: "Business Model Canvas (BMC) Core Highlights",
     tab_0: "1. Value Proposition & Products", tab_1: "2. Customer Segments", tab_2: "3. Key Partners & Resources", tab_3: "4. Revenue Streams & Impact",
     q1: "What is the core value proposition of Bac Le Sacred Echo?",
@@ -317,7 +366,7 @@ var i18nData = {
     cta_desc: "Execution Team: Tan Thanh High School Students (Contact Fanpage 'Bac Le Sacred Echo').",
     bot_name: "Bac Le Sacred Echo Assistant", bot_sub: "Connecting Cultures – Creating Experiences",
     btn_send: "Send", placeholder: "Feel free to ask us anything...",
-    default_chips: ['Directions to Bac Le 🗺️', 'Heritage Workshops 🎶', 'QR Gift Boxes 📦', 'FB Page Contact 📞']
+    default_chips: ['Đường đi Bắc Lệ 🗺️', 'Workshop di sản 🎶', 'Gift Box QR 📦', 'Liên hệ Fanpage FB 📞']
   }
 };
 
@@ -384,51 +433,206 @@ themeToggleBtn.addEventListener('click', function(){
   });
 })();
 
-// --- SỰ KIỆN PHÓNG TO ẢNH (LIGHTBOX MODAL) ---
+// --- DỮ LIỆU ALBUM ẢNH POPUP ---
+var albumData = {
+  den_bac_le: [
+    {
+      url: "https://i.ibb.co/5Wq1qmpT/1791123876230-6054260761147410839-6054260761147410839-c9ba286a07cd2af51ba3390608396979.jpg",
+      title: "Đền Mẫu Bắc Lệ Linh Thiêng (Ảnh 1/3)",
+      desc: "Tọa lạc trên đồi cao giữa rừng cây cổ thụ tại xã Tân Thành, Đền Mẫu Bắc Lệ nổi tiếng linh thiêng, là nơi thờ Tam tòa Thánh Mẫu và Chầu Bé Bắc Lệ."
+    },
+    {
+      url: "https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=800&q=80",
+      title: "Không Gian Kiến Trúc Cổ Kính Đền Bắc Lệ (Ảnh 2/3)",
+      desc: "Khuôn viên đền giữ trọn nét cổ kính thuần Việt, hài hòa cùng không gian Công viên Địa chất toàn cầu UNESCO Lạng Sơn."
+    },
+    {
+      url: "https://images.unsplash.com/photo-1508807526345-15e9b5f4eaff?auto=format&fit=crop&w=800&q=80",
+      title: "Lễ Hội Văn Hóa Đền Bắc Lệ (Ảnh 3/3)",
+      desc: "Hàng năm du khách thập phương tụ hội về đây dâng hương chiêm bái, cầu bình an và hòa mình vào không gian di sản tâm linh độc đáo."
+    }
+  ],
+  chau_van: [
+    {
+      url: "https://i.ibb.co/S7V6x1Th/chau-van.jpg",
+      title: "Nghệ Thuật Hát Chầu Văn (Ảnh 1/3)",
+      desc: "Tín ngưỡng thờ Mẫu Tam phủ của người Việt được UNESCO công nhận là Di sản văn hóa phi vật thể đại diện của nhân loại."
+    },
+    {
+      url: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80",
+      title: "Âm Nhạc Di Sản Chầu Văn Thực Cảnh (Ảnh 2/3)",
+      desc: "Tiếng đàn Nguyệt, nhịp phách cùng lời ca huyền ảo tái hiện lại những tích xưa về các vị Thánh Chầu uy nghi."
+    },
+    {
+      url: "https://images.unsplash.com/photo-1465847899084-d164df4dedc6?auto=format&fit=crop&w=800&q=80",
+      title: "Trang Phục Hầu Đồng Tinh Tế (Ảnh 3/3)",
+      desc: "Mỗi giá hầu mang sắc màu trang phục dân tộc riêng biệt, thể hiện sự tôn kính và nét nghệ thuật diễn xướng dân gian."
+    }
+  ],
+  gift_box: [
+    {
+      url: "https://i.ibb.co/m5SYYRBH/Gift-Box.gif",
+      title: "Chuỗi Gift Box & Food Box Nông Sản QR (Ảnh 1/3)",
+      desc: "Bộ quà tặng di sản độc đáo kết hợp giữa nông sản OCOP Lạng Sơn và thẻ công nghệ thuyết minh số mã QR đa ngôn ngữ."
+    },
+    {
+      url: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=800&q=80",
+      title: "Sản Phẩm Tinh Tế Mang Bản Sắc Bản Địa (Ảnh 2/3)",
+      desc: "Bên trong mỗi Gift Box bao gồm túi thơm thảo mộc, búp bê Tày-Nùng, đặc sản nông sản và postcard di sản số hóa."
+    },
+    {
+      url: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=800&q=80",
+      title: "Trải Nghiệm Quét Mã QR Khám Phá Di Sản (Ảnh 3/3)",
+      desc: "Chỉ cần dùng điện thoại quét mã QR trên vỏ hộp, du khách sẽ được nghe thuyết minh đa ngôn ngữ và xem video tái hiện di sản."
+    }
+  ],
+  hat_then: [
+    {
+      url: "https://i.ibb.co/bMcPBTym/H-t-Then.jpg",
+      title: "Nghệ Thuật Hát Then & Đàn Tính (Ảnh 1/3)",
+      desc: "Hát Then là điệu dân ca nghi lễ linh thiêng của người Tày - Nùng, kết hợp cùng tiếng Đàn Tính mộc mạc đi vào lòng người."
+    },
+    {
+      url: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80",
+      title: "Workshop Chế Tác Đàn Tính Cùng Nghệ Nhân (Ảnh 2/3)",
+      desc: "Du khách được tự tay chế tác bầu đàn từ quả bầu khô và tự bấm những phím đàn Tính đầu tiên dưới sự hướng dẫn tỉ mỉ."
+    },
+    {
+      url: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=800&q=80",
+      title: "Trải Nghiệm Mặc Trang Phục Dân Tộc Tày - Nùng (Ảnh 3/3)",
+      desc: "Khoác lên mình bộ trang phục thổ cẩm truyền thống, chụp ảnh lưu niệm và hòa mình vào làn điệu Then ngọt ngào."
+    }
+  ]
+};
+
+// --- XỬ LÝ POPUP ALBUM SLIDESHOW ---
 (function(){
   var modal = document.getElementById('lightbox-modal');
   var modalImg = document.getElementById('lightbox-img');
-  var captionText = document.getElementById('lightbox-caption');
+  var titleText = document.getElementById('lightbox-title');
+  var descText = document.getElementById('lightbox-desc');
   var closeBtn = document.getElementById('lightbox-close');
+  var prevBtn = document.getElementById('slider-prev');
+  var nextBtn = document.getElementById('slider-next');
+  var dotsContainer = document.getElementById('slider-dots');
+
+  var currentAlbum = [];
+  var currentIndex = 0;
+  var autoSlideTimer = null;
+
+  function renderSlide(index) {
+    if (!currentAlbum || currentAlbum.length === 0) return;
+    currentIndex = index;
+    if (currentIndex < 0) currentIndex = currentAlbum.length - 1;
+    if (currentIndex >= currentAlbum.length) currentIndex = 0;
+
+    var item = currentAlbum[currentIndex];
+    modalImg.style.opacity = '0.3';
+    setTimeout(function(){
+      modalImg.src = item.url;
+      modalImg.style.opacity = '1';
+    }, 150);
+
+    titleText.textContent = item.title;
+    descText.textContent = item.desc;
+
+    var dots = dotsContainer.querySelectorAll('.slider-dot');
+    dots.forEach(function(dot, i){
+      dot.classList.toggle('active', i === currentIndex);
+    });
+  }
+
+  function startAutoSlide() {
+    stopAutoSlide();
+    autoSlideTimer = setInterval(function(){
+      renderSlide(currentIndex + 1);
+    }, 10000);
+  }
+
+  function stopAutoSlide() {
+    if (autoSlideTimer) {
+      clearInterval(autoSlideTimer);
+      autoSlideTimer = null;
+    }
+  }
+
+  function openModalWithAlbum(albumKey) {
+    currentAlbum = albumData[albumKey] || [];
+    if (currentAlbum.length === 0) return;
+
+    dotsContainer.innerHTML = '';
+    currentAlbum.forEach(function(_, i){
+      var dot = document.createElement('div');
+      dot.className = 'slider-dot' + (i === 0 ? ' active' : '');
+      dot.addEventListener('click', function(){
+        renderSlide(i);
+        startAutoSlide();
+      });
+      dotsContainer.appendChild(dot);
+    });
+
+    renderSlide(0);
+    modal.classList.add('active');
+    startAutoSlide();
+  }
 
   document.querySelectorAll('.gallery-card').forEach(function(card){
     card.addEventListener('click', function(){
-      var img = card.querySelector('img');
-      var p = card.querySelector('p');
-      if(img) {
-        modal.classList.add('active');
-        modalImg.src = img.src;
-        captionText.textContent = p ? p.textContent : img.alt;
-      }
+      var albumKey = card.getAttribute('data-album') || 'den_bac_le';
+      openModalWithAlbum(albumKey);
     });
+  });
+
+  prevBtn.addEventListener('click', function(){
+    renderSlide(currentIndex - 1);
+    startAutoSlide();
+  });
+
+  nextBtn.addEventListener('click', function(){
+    renderSlide(currentIndex + 1);
+    startAutoSlide();
   });
 
   closeBtn.addEventListener('click', function(){
     modal.classList.remove('active');
+    stopAutoSlide();
   });
 
   modal.addEventListener('click', function(e){
     if(e.target === modal) {
       modal.classList.remove('active');
+      stopAutoSlide();
     }
   });
 })();
 
-// --- SMART CHATBOT ENGINE WITH MULTI-LANGUAGE CONVERSATION STATE ---
+// --- CHATBOT THÔNG MINH ĐÃ TỐI ƯU NHẬN DIỆN CHIP & ICON ---
 (function(){
   var fab=document.getElementById('fab'),chat=document.getElementById('chat'),cl=document.getElementById('cl'),cf=document.getElementById('cf'),ci=document.getElementById('ci'),cx=document.getElementById('cx'),cs=document.getElementById('cs');
   var greeted = false;
   var isTyping = false;
 
-  // HỆ THỐNG TRẠNG THÁI HỘI THOẠI (STATE MANAGEMENT)
   var userSession = {
-    step: 'IDLE', // IDLE, WAITING_GROUP_TYPE, WAITING_DATE, WAITING_GIFT_CHOICE
+    step: 'IDLE',
     groupType: null,
     productChoice: null
   };
 
+  function getRandom(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+  // Hàm bỏ dấu & loại bỏ emoji/ký tự đặc biệt để so sánh chính xác
   function removeAccents(str) {
-    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+    if (!str) return '';
+    return str
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[\u1E00-\u1EFF]/g, '')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^\w\s]/gi, '') // Bỏ hết emoji và ký tự đặc biệt
+      .toLowerCase()
+      .trim();
   }
 
   function addMsg(role, text) {
@@ -473,8 +677,8 @@ themeToggleBtn.addEventListener('click', function(){
             var char = text.charAt(i);
             i++;
             cl.scrollTop = cl.scrollHeight;
-            var delay = Math.floor(Math.random() * 15) + 10;
-            if (char === '.' || char === '\n' || char === '!') delay += 120;
+            var delay = Math.floor(Math.random() * 12) + 8;
+            if (char === '.' || char === '\n' || char === '!') delay += 100;
             setTimeout(typeChar, delay);
           } else {
             if(callback) callback();
@@ -482,7 +686,7 @@ themeToggleBtn.addEventListener('click', function(){
         }
         typeChar();
       }
-    }, Math.random() * 200 + 250);
+    }, Math.random() * 150 + 200);
   }
 
   function sendMultipleBubbles(bubbles, nextChips, index) {
@@ -497,7 +701,7 @@ themeToggleBtn.addEventListener('click', function(){
       typeBubble(bubbles[index], function(){
         setTimeout(function(){
           sendMultipleBubbles(bubbles, nextChips, index + 1);
-        }, 300);
+        }, 250);
       });
     } else {
       isTyping = false;
@@ -509,421 +713,223 @@ themeToggleBtn.addEventListener('click', function(){
   }
 
   function renderChips(chipList) {
-    var oldChips = cl.querySelector('.chips');
-    if(oldChips) oldChips.remove();
+  var oldChips = cl.querySelector('.chips');
+  if(oldChips) oldChips.remove();
 
-    if(!chipList || chipList.length === 0) return;
+  if(!chipList || chipList.length === 0) return;
 
-    var chips = document.createElement('div');
-    chips.className = 'chips';
+  var chips = document.createElement('div');
+  chips.className = 'chips';
 
-    chipList.forEach(function(q){
-      var b = document.createElement('button');
-      b.type = 'button';
-      b.textContent = q;
-      b.onclick = function(){
-        handleSend(q);
-      };
-      chips.appendChild(b);
-    });
-    cl.appendChild(chips);
-    cl.scrollTop = cl.scrollHeight;
-  }
+  chipList.forEach(function(q){
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.textContent = q;
+    b.onclick = function(){
+      // Lọc bỏ toàn bộ emoji và ký tự ẩn đặc biệt trước khi gửi
+      var textToSend = q.replace(/[\u{1F300}-\u{1F9FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]|[\u{FE00}-\u{FE0F}]/gu, '').trim();
+      handleSend(textToSend);
+    };
+    chips.appendChild(b);
+  });
+  cl.appendChild(chips);
+  cl.scrollTop = cl.scrollHeight;
+}
 
-  // BỘ XỬ LÝ TRÍ TUỆ NHÂN TẠO ĐA NGÔN NGỮ (VIETNAMESE & ENGLISH)
+  // BỘ XỬ LÝ BẮT TỪ KHÓA TỐI ƯU
   function processUserInput(userInput) {
     var rawInput = userInput.trim();
     var cleanInput = removeAccents(rawInput);
     var isEn = currentLang === 'en';
 
     // -------------------------------------------------------------
-    // TRƯỜNG HỢP 0: KHÁCH HÀNG CẢM THÁN
+    // 0. KHÁCH CẢM THÁN / KHEN NGỢI
     // -------------------------------------------------------------
     var isExclamation = 
-      cleanInput === 'hay qua' || cleanInput === 'hay qua a' || cleanInput === 'hay quaaa' ||
-      cleanInput === 'nghe hap dan qua' || cleanInput === 'hap dan qua' || cleanInput === 'hap dan qua a' ||
-      cleanInput === 'tuyet voi' || cleanInput === 'tuyet voi qua' || cleanInput === 'tuyet quaaa' ||
-      cleanInput === 'nghe hay day' || cleanInput === 'hay day' || cleanInput === 'hay nha' ||
-      cleanInput === 'xin qua' || cleanInput === 'xin xo qua' || cleanInput === 'dinh qua' ||
-      cleanInput === 'thu vi qua' || cleanInput === 'thu vi day' || cleanInput === 'an dung qua' ||
-      cleanInput === 'like' || cleanInput === 'ok qua' || cleanInput === 'qua tot' ||
       cleanInput.indexOf('hay qua') !== -1 || cleanInput.indexOf('hap dan qua') !== -1 ||
       cleanInput.indexOf('tuyet voi') !== -1 || cleanInput.indexOf('nghe hay') !== -1 ||
-      cleanInput.indexOf('great') !== -1 || cleanInput.indexOf('awesome') !== -1 || cleanInput.indexOf('wonderful') !== -1 ||
-      cleanInput.indexOf('sounds good') !== -1 || cleanInput.indexOf('sounds interesting') !== -1 || cleanInput.indexOf('cool') !== -1;
+      cleanInput.indexOf('xin xo') !== -1 || cleanInput.indexOf('dinh qua') !== -1 ||
+      cleanInput.indexOf('great') !== -1 || cleanInput.indexOf('awesome') !== -1;
 
     if (isExclamation) {
       if (isEn) {
-        var randomExclamationsEn = [
+        var exEn = [
           [
-            "Thank you so much! 😊 We worked really hard to create this unique heritage experience.",
-            "Would you like to join our hands-on workshop or check out our QR Gift Boxes?"
-          ],
-          [
-            "Yay! Glad you found it interesting 🎉!",
-            "If you have a visit planned, I can give you quick directions or help you book a spot right away."
+            "Thank you so much! 😊 Our student team put a lot of love into preserving Bac Le heritage.",
+            "Would you like to explore our Heritage Workshops or test a QR Gift Box sample?"
           ]
         ];
-        var chosenEnEx = randomExclamationsEn[Math.floor(Math.random() * randomExclamationsEn.length)];
-        return {
-          bubbles: chosenEnEx,
-          chips: ['Directions to Bac Le 🗺️', 'Register Workshop 🎶', 'Buy QR Gift Box 📦', 'Contact Fanpage 💬']
-        };
+        return { bubbles: getRandom(exEn), chips: ['Directions to Bac Le 🗺️', 'Register Workshop 🎶', 'Buy QR Gift Box 📦', 'Contact Fanpage 💬'] };
       } else {
-        var randomExclamationsVi = [
+        var exVi = [
           [
-            "Dạ tụi em cảm ơn anh/chị nhiều ạ! 🥰 Tụi em luôn mong muốn mang di sản đến gần hơn với mọi người theo cách sinh động nhất.",
-            "Anh/Chị có muốn tìm hiểu thử xem Workshop chế tác nhạc cụ hay Chuỗi Gift Box QR độc đáo không ạ?"
+            "Dạ tụi em cảm ơn anh/chị nhiều lắm ạ! 🥰 Tụi em luôn mong muốn mang di sản Đền Bắc Lệ đến gần hơn với du khách theo cách tươi trẻ và sinh động nhất.",
+            "Anh/Chị có muốn tìm hiểu thử xem Workshop làm nhạc cụ hay Chuỗi Gift Box QR độc đáo không ạ?"
           ],
           [
-            "Dạ hihi, nghe hấp dẫn lắm đúng không ạ! 🎉 Trực tiếp đến đền và trải nghiệm mặc trang phục Tày Nùng, nghe hát Then thực cảnh còn tuyệt vời hơn nữa cơ.",
-            "Anh/Chị có cần em hướng dẫn đường đi hoặc tư vấn lịch trình ghé thăm không ạ?"
+            "Dạ hihi, nghe hấp dẫn lắm đúng không ạ! 🎉 Trực tiếp ghé thăm Đền Mẫu Bắc Lệ (xã Tân Thành) và trải nghiệm mặc trang phục Tày Nùng, nghe hát Then còn tuyệt hơn nữa cơ.",
+            "Anh/Chị có cần em hướng dẫn chi tiết đường đi từ Hà Nội hay Lạng Sơn không ạ?"
           ]
         ];
-        var chosenViEx = randomExclamationsVi[Math.floor(Math.random() * randomExclamationsVi.length)];
-        return {
-          bubbles: chosenViEx,
-          chips: ['Đường đi Bắc Lệ 🗺️', 'Đăng ký Workshop 🎶', 'Đặt mua Gift Box QR 📦', 'Liên hệ Fanpage 💬']
-        };
+        return { bubbles: getRandom(exVi), chips: ['Đường đi Bắc Lệ 🗺️', 'Đăng ký Workshop 🎶', 'Đặt mua Gift Box QR 📦', 'Liên hệ Fanpage 💬'] };
       }
     }
 
     // -------------------------------------------------------------
-    // TRƯỜNG HỢP 1: PHẢN HỒI THEO TRẠNG THÁI
+    // 1. PHẢN HỒI THEO MẠCH HỘI THOẠI
     // -------------------------------------------------------------
-
     if (userSession.step === 'WAITING_GROUP_TYPE') {
-      if (cleanInput.indexOf('ca nhan') !== -1 || cleanInput.indexOf('gia dinh') !== -1 || cleanInput.indexOf('individual') !== -1 || cleanInput.indexOf('family') !== -1 || cleanInput.indexOf('solo') !== -1 || cleanInput.indexOf('1') !== -1 || cleanInput.indexOf('2') !== -1) {
+      if (cleanInput.indexOf('ca nhan') !== -1 || cleanInput.indexOf('gia dinh') !== -1 || cleanInput.indexOf('1') !== -1 || cleanInput.indexOf('2') !== -1) {
         userSession.groupType = 'ca_nhan';
         userSession.step = 'WAITING_DATE';
-        return isEn ? {
-          bubbles: [
-            "Wonderful! For individuals or families, we offer hands-on instrument making and ethnic Tay-Nung costume dress-up experiences 📸.",
-            "When are you planning to visit Bac Le Temple?"
-          ],
-          chips: ['This weekend', 'Next week', 'Need advice on dates']
-        } : {
-          bubbles: [
-            "Dạ tuyệt vời quá ạ! Với nhóm cá nhân / gia đình, tụi mình có các suất trải nghiệm làm nhạc cụ và khoác lên mình bộ trang phục Tày - Nùng rất xinh xắn 📸.",
+        var resp1 = [
+          [
+            "Dạ tuyệt vời quá ạ! Với nhóm cá nhân hoặc gia đình, tụi mình có suất trải nghiệm làm nhạc cụ và khoác lên mình bộ trang phục Tày - Nùng chụp ảnh rất xinh xắn 📸.",
             "Dự kiến anh/chị định ghé thăm Đền Bắc Lệ vào ngày nào hoặc dịp cuối tuần nào ạ?"
-          ],
-          chips: ['Cuối tuần này', 'Tuần sau', 'Cần tư vấn thời gian']
-        }
-      } else if (cleanInput.indexOf('hoc sinh') !== -1 || cleanInput.indexOf('truong') !== -1 || cleanInput.indexOf('student') !== -1 || cleanInput.indexOf('school') !== -1 || cleanInput.indexOf('education') !== -1) {
+          ]
+        ];
+        return { bubbles: getRandom(resp1), chips: ['Cuối tuần này', 'Tuần sau', 'Cần tư vấn thời gian'] };
+      } else if (cleanInput.indexOf('hoc sinh') !== -1 || cleanInput.indexOf('truong') !== -1 || cleanInput.indexOf('doan') !== -1) {
         userSession.groupType = 'doan_hoc_sinh';
         userSession.step = 'WAITING_DATE';
-        return isEn ? {
-          bubbles: [
-            "Awesome! The Bac Le Sacred Echo project is tailored for interdisciplinary education (STEM, History, Culture), perfect for schools and student groups 🎒.",
-            "We will prepare all workshop materials and dedicated folk artisans for your group. What date is your school planning to host this tour?"
-          ],
-          chips: ['This month', 'Next month', 'Contact for full quote']
-        } : {
+        return {
           bubbles: [
             "Dạ tuyệt vời ạ! Dự án Bắc Lệ Sacred Echo được thiết kế chuẩn mô hình Giáo dục liên môn (STEM, Lịch sử, Văn hóa) rất thích hợp cho các trường học và đoàn học sinh 🎒.",
             "Tụi mình sẽ chuẩn bị đầy đủ dụng cụ chế tác và nghệ nhân hướng dẫn riêng cho đoàn. Dự kiến thầy/cô hay nhà trường định tổ chức vào ngày nào ạ?"
           ],
           chips: ['Tháng này', 'Tháng sau', 'Liên hệ báo giá chi tiết']
         };
-      } else if (cleanInput.indexOf('doan') !== -1 || cleanInput.indexOf('cong ty') !== -1 || cleanInput.indexOf('tour') !== -1 || cleanInput.indexOf('group') !== -1 || cleanInput.indexOf('agency') !== -1 || cleanInput.indexOf('company') !== -1) {
-        userSession.groupType = 'doan_du_lich';
-        userSession.step = 'WAITING_DATE';
-        return isEn ? {
-          bubbles: [
-            "Welcome tour groups to Bac Le! For travel groups and corporate teams, we offer full-package experiences including live Then & Chau Van performances, local cuisine, and luxurious QR Gift Boxes 🌿.",
-            "Do you have an estimated travel date or the exact number of participants yet?"
-          ],
-          chips: ['Group of 20-30 people', 'Large group (>50 people)', 'Get full itinerary']
-        } : {
-          bubbles: [
-            "Dạ hoan nghênh đoàn mình đến với Bắc Lệ! Với khách đoàn du lịch/doanh nghiệp, bên em có gói trải nghiệm trọn gói bao gồm: Thưởng thức hát Then, Chầu văn thực cảnh, trải nghiệm ẩm thực và quà tặng Gift Box QR sang trọng 🌿.",
-            "Anh/Chị đã có thời gian dự kiến tổ chức hoặc số lượng thành viên đoàn cụ thể chưa ạ?"
-          ],
-          chips: ['Đoàn khoảng 20-30 người', 'Đoàn đông trên 50 người', 'Gửi lịch trình trọn gói']
-        };
       }
     }
 
     if (userSession.step === 'WAITING_DATE') {
       userSession.step = 'IDLE';
-      return isEn ? {
-        bubbles: [
-          "Thank you! We have noted your expected visit details 📝.",
-          "To help us prepare best for your visit, please click **Experience Now** or contact Fanpage <a href='https://web.facebook.com/share/19a5dty6Vb/' target='_blank'><b>'Bac Le Sacred Echo'</b></a> directly!"
-        ],
-        chips: ['Contact Fanpage 💬', 'Buy QR Gift Box 📦', 'Review Workshop Details']
-      } : {
+      return {
         bubbles: [
           "Dạ em đã ghi nhận thông tin dự kiến của anh/chị rồi ạ! 📝",
-          "Để tụi mình chủ động chuẩn bị chu đáo nhất, anh/chị có thể để lại SĐT hoặc bấm nút **Trải Nghiệm Ngay** để nhắn trực tiếp cho nhóm qua Fanpage <a href='https://web.facebook.com/share/19a5dty6Vb/' target='_blank'><b>\"Bắc Lệ Sacred Echo\"</b></a> nhé!"
+          "Để tụi mình chủ động chuẩn bị chu đáo nhất, anh/chị có thể nhắn trực tiếp cho nhóm qua Fanpage <a href='https://web.facebook.com/share/19a5dty6Vb/' target='_blank'><b>\"Bắc Lệ Sacred Echo\"</b></a> nhé!"
         ],
-        chips: ['Liên hệ Fanpage 💬', 'Đặt mua Gift Box QR 📦', 'Xem lại thông tin Workshop']
+        chips: ['Liên hệ Fanpage 💬', 'Đặt mua Gift Box QR 📦', 'Xem lại Workshop']
       };
     }
 
-    if (userSession.step === 'WAITING_GIFT_CHOICE') {
-      if (cleanInput.indexOf('tieu chuan') !== -1 || cleanInput.indexOf('standard') !== -1 || cleanInput.indexOf('150') !== -1 || cleanInput.indexOf('180') !== -1) {
-        userSession.step = 'IDLE';
-        return isEn ? {
-          bubbles: [
-            "The **Standard Gift Box ($6 - $8 / 150k-180k VNĐ)** is a great choice! 📦",
-            "Includes: Herbal sachet + Tay-Nung doll keychain + Local specialty jar/cake + QR audio guide card.",
-            "How many boxes would you like to order?"
-          ],
-          chips: ['Order 1 - 5 boxes', 'Bulk order for group', 'Need more details']
-        } : {
-          bubbles: [
-            "Dạ gói **Gift Box Tiêu Chuẩn (150k - 180k)** là lựa chọn cực kỳ hợp lý và ý nghĩa ạ! 📦",
-            "Sản phẩm gồm: Túi thơm thảo mộc + Móc khóa búp bê Tày Nùng + Hũ đặc sản/Bánh + Thẻ mã QR nghe thuyết minh số.",
-            "Anh/Chị muốn đặt mua số lượng bao nhiêu hộp ạ?"
-          ],
-          chips: ['Đặt 1 - 5 hộp', 'Đặt số lượng lớn cho đoàn', 'Cần tư vấn thêm']
-        };
-      } else if (cleanInput.indexOf('cao cap') !== -1 || cleanInput.indexOf('premium') !== -1 || cleanInput.indexOf('250') !== -1 || cleanInput.indexOf('350') !== -1) {
-        userSession.step = 'IDLE';
-        return isEn ? {
-          bubbles: [
-            "The **Premium Gift Box ($10 - $14 / 250k-350k VNĐ)** is elegant and rich in culture! ✨",
-            "Includes: Mini Tinh Lute replica + OCOP local produce box + Brocade embroidered scarf + Exclusive Postcard & QR code card.",
-            "Are you ordering this for diplomatic gifts or travel souvenirs?"
-          ],
-          chips: ['Order diplomatic gift set', 'Order travel souvenirs', 'Custom packaging inquiry']
-        } : {
-          bubbles: [
-            "Dạ gói **Gift Box Cao Cấp (250k - 350k)** vô cùng sang trọng và mang đậm giá trị di sản ạ! ✨",
-            "Sản phẩm gồm: Mô hình Đàn Tính mini + Hộp nông sản OCOP + Khăn thêu thổ cẩm + Bộ Postcard & Thẻ mã QR số hóa đặc quyền.",
-            "Anh/Chị muốn đặt làm quà tặng ngoại giao hay quà lưu niệm cho đoàn ạ?"
-          ],
-          chips: ['Đặt quà tặng ngoại giao', 'Đặt quà du lịch', 'Tư vấn đóng gói theo yêu cầu']
-        };
-      }
-    }
-
     // -------------------------------------------------------------
-    // TRƯỜNG HỢP 2: BẮT TỪ KHÓA TỰ NHIÊN (INTENT MATCHING)
+    // 2. PHỦ RỘNG TỪ KHÓA & NHẬN DIỆN ĐƯỜNG ĐI (ĐÃ FIX TRIỆT ĐỂ)
     // -------------------------------------------------------------
-
-    var inputLower = cleanInput.toLowerCase();
-
-    // 2A. ĐƯỜNG ĐI BẮC LỆ (BỔ SUNG CẢ 2 HƯỚNG TỪ HÀ NỘI VÀ TỪ LẠNG SƠN QUA QL1A)
     var isRouteQuery = 
-      inputLower.indexOf('duong di') !== -1 || inputLower.indexOf('cach ha noi') !== -1 || 
-      inputLower.indexOf('di nhu nao') !== -1 || inputLower.indexOf('di sao') !== -1 || 
-      inputLower.indexOf('chi duong') !== -1 || inputLower.indexOf('duong den') !== -1 || 
-      inputLower.indexOf('phuong tien') !== -1 || inputLower.indexOf('den bang gi') !== -1 || 
-      inputLower.indexOf('o dau') !== -1 || inputLower.indexOf('dia chi') !== -1 || 
-      inputLower.indexOf('vi tri') !== -1 || inputLower.indexOf('khoang cach') !== -1 || 
-      inputLower.indexOf('direction') !== -1 || inputLower.indexOf('route') !== -1 || 
-      inputLower.indexOf('how to get') !== -1 || inputLower.indexOf('distance') !== -1 || 
-      inputLower.indexOf('far from hanoi') !== -1 || inputLower.indexOf('huong tu hn') !== -1 || 
-      inputLower.indexOf('huong tu ls') !== -1 || inputLower.indexOf('ql1a') !== -1;
+      cleanInput.indexOf('duong di') !== -1 || 
+      cleanInput.indexOf('chi duong') !== -1 || 
+      cleanInput.indexOf('di nhu nao') !== -1 || 
+      cleanInput.indexOf('di sao') !== -1 || 
+      cleanInput.indexOf('phuong tien') !== -1 || 
+      cleanInput.indexOf('den bang gi') !== -1 || 
+      cleanInput.indexOf('o dau') !== -1 || 
+      cleanInput.indexOf('dia chi') !== -1 || 
+      cleanInput.indexOf('vi tri') !== -1 || 
+      cleanInput.indexOf('khoang cach') !== -1 || 
+      cleanInput.indexOf('direction') !== -1 || 
+      cleanInput.indexOf('route') !== -1 || 
+      cleanInput.indexOf('how to get') !== -1 || 
+      cleanInput.indexOf('distance') !== -1 || 
+      cleanInput.indexOf('ql1a') !== -1 || 
+      cleanInput.indexOf('xe khach') !== -1 || 
+      cleanInput.indexOf('xe may') !== -1 || 
+      cleanInput.indexOf('o to') !== -1 || 
+      cleanInput.indexOf('ha noi') !== -1 || 
+      cleanInput.indexOf('lang son') !== -1 || 
+      cleanInput.indexOf('bac le') !== -1 || 
+      cleanInput.indexOf('tan thanh') !== -1;
 
     if (isRouteQuery) {
       if (isEn) {
         return {
           bubbles: [
-            "📍 **Location:** Bac Le Temple is in Tan Thanh Commune, Huu Lung District, Lang Son Province.",
-            "🚘 **Option 1: Route from Hanoi (via QL1A / CT01 Expressway):**\n• Follow Hanoi - Bac Giang - Lang Son Route.\n• Arrive at **Huu Lung / Met Town** area ➔ Turn right at the traffic lights towards Bac Le / Tan Thanh.",
-            "🚗 **Option 2: Route from Lang Son City (from the North down):**\n• Go south along National Route 1A (QL1A) towards Huu Lung.\n• Reaching Met Town intersection ➔ Turn left towards Bac Le / Tan Thanh to reach the temple grounds.",
-            "💡 Both routes connect via QL1A & CT01 directly into Tan Thanh commune!"
+            "📍 **Detailed Route Instructions to Bac Le Mother Temple:**",
+            "🏛 **Address:** Bac Le Temple, Tan Thanh Commune, Lang Son Province (inside UNESCO Global Geopark Lang Son).",
+            "🚘 **1. From HANOI (100 - 110 km):** Take QL1A or Hanoi - Lang Son Expressway (CT01) ➔ Turn right at the main junction towards Tan Thanh Commune ➔ Drive 10km straight to the temple.",
+            "🚗 **2. From LANG SON CITY (45 km):** Travel South along QL1A towards Tan Thanh ➔ Turn left into Tan Thanh Commune.",
+            "💡 **Parking:** Spacious parking for motorcycles, cars, and 45-seat buses available!"
           ],
           chips: ['Register Workshop 🎶', 'Contact Fanpage FB 📞', 'Buy QR Gift Box 📦']
         };
       } else {
-        return {
-          bubbles: [
-            "Dạ! Tụi mình hướng dẫn chi tiết lộ trình di chuyển tới Đền Mẫu Bắc Lệ theo 2 hướng chính vô cùng tiện lợi nha 🌾:",
-            "🚗 **1. Hướng đi từ HÀ NỘI (Khoảng 100km - 110km):**\n• Đi từ Hà Nội qua Cầu Thanh Trì ➔ Theo tuyến QL1A / Cao Tốc Hà Nội – Bắc Giang – Lạng Sơn.\n• Qua Bắc Ninh ➔ Bắc Giang ➔ Đến địa phận **Hữu Lũng (Thị trấn Mẹt)**.\n• Tại ngã tư có đèn giao thông trung tâm Hữu Lũng ➔ **Rẽ phải** theo hướng Bắc Lệ / Tân Thành khoảng 10km là tới đền.",
-            "🚘 **2. Hướng đi từ THÀNH PHỐ LẠNG SƠN (Khoảng 45km):**\n• Từ TP. Lạng Sơn xuôi theo Quốc lộ 1A (QL1A) hướng về phía Hữu Lũng.\n• Đến ngã tư đèn giao thông Thị trấn Mẹt (Hữu Lũng) ➔ **Rẽ trái** theo hướng chỉ dẫn vào Bắc Lệ / Tân Thành.",
-            "🔗 Bạn hoàn toàn có thể di chuyển linh hoạt theo QL1A hoặc Cao Tốc CT01 ô tô vào tận sân đền cực kỳ an toàn nha!"
+        var routeViVariants = [
+          [
+            "📍 **HƯỚNG DẪN ĐƯỜNG ĐI CỰC CHI TIẾT TỚI ĐỀN MẪU BẮC LỆ:**",
+            "🏛 **Địa chỉ di tích:** Đền Bắc Lệ, Xã Tân Thành, Tỉnh Lạng Sơn (Thuộc Công viên Địa chất toàn cầu UNESCO Lạng Sơn).",
+            "🚘 **1. TỪ HÀ NỘI LÊN (Khoảng 100km - 110km):**\n• Xuất phát qua Cầu Thanh Trì ➔ Đi theo Quốc lộ 1A (QL1A) hoặc Cao tốc Hà Nội - Lạng Sơn (CT01).\n• Đến biển chỉ dẫn rẽ vào xã Tân Thành ➔ Đi tiếp khoảng 10km đường nhựa rải nhựa đẹp rợp bóng cây là tới thẳng cổng Đền.",
+            "🚗 **2. TỪ TP. LẠNG SƠN XUÔI VỀ (Khoảng 45km):**\n• Từ trung tâm TP. Lạng Sơn xuôi QL1A về phía Nam ➔ Rẽ trái theo biển chỉ dẫn Tân Thành / Đền Bắc Lệ.",
+            "💡 **Lưu ý bãi đỗ xe:** Bãi đỗ xe Đền rất rộng rãi, xe máy, ô tô 4 chỗ hay xe khách 45 chỗ đều vào tận nơi dễ dàng ạ!"
           ],
-          chips: ['Đăng ký Workshop 🎶', 'Đặt mua Gift Box QR 📦', 'Liên hệ Fanpage FB 📞']
-        };
+          [
+            "🗺️ **ĐỂ TỤI MÌNH CHỈ ĐƯỜNG CHO BẠN GHÉ ĐỀN BẮC LỆ NHA:**",
+            "📍 **Tọa độ:** Đền Bắc Lệ nằm yên bình tại Xã Tân Thành, Tỉnh Lạng Sơn.",
+            "🚗 **Di chuyển bằng Ô tô/Xe máy:** Bạn chạy dọc theo Quốc Lộ 1A (QL1A). Khi thấy biển báo đường vào Xã Tân Thành thì bạn rẽ vào, đi thêm 10 phút trên đường thảm nhựa siêu êm là tới ngay Đền.",
+            "🚌 **Di chuyển bằng Xe khách:** Bắt các chuyến xe Hà Nội – Lạng Sơn chạy QL1A, bảo bác tài cho xuống lối rẽ Xã Tân Thành rồi đón taxi/xe ôm đi thêm 10km là tới đền nhé!"
+          ]
+        ];
+        return { bubbles: getRandom(routeViVariants), chips: ['Đăng ký Workshop 🎶', 'Đặt mua Gift Box QR 📦', 'Liên hệ Fanpage FB 📞'] };
       }
     }
-    
-    // 2B. Muốn nói chuyện, trò chuyện với Bot
-    if (cleanInput.indexOf('noi chuyen') !== -1 || cleanInput.indexOf('tro chuyen') !== -1 || cleanInput.indexOf('chat') !== -1 || cleanInput.indexOf('tam su') !== -1 || cleanInput.indexOf('talk') !== -1 || cleanInput.indexOf('speak') !== -1 || cleanInput.indexOf('bot') !== -1) {
-      return isEn ? {
-        bubbles: [
-          "I'm right here! 😊 I'm the AI assistant created by student team from Tan Thanh High School.",
-          "I can tell you all about Bac Le Temple's living heritage, routes from Hanoi/Lang Son, our interactive workshops, or QR Gift Boxes.",
-          "What topic would you like to chat about?"
-        ],
-        chips: ['Tell me about Bac Le Temple ⛩', 'Tell me about Workshops 🎶', 'Tell me about Gift Boxes 📦']
-      } : {
-        bubbles: [
-          "Dạ em đây rồi ạ! 😊 Em là trợ lý ảo được nhóm học sinh Trường THPT Tân Thành lập nên.",
-          "Em có thể chia sẻ với anh/chị về di sản Đền Bắc Lệ, đường đi từ HN/LS, các hoạt động workshop làm nhạc cụ, bộ Gift Box QR độc đáo hay các dịch vụ tắm lá thảo dược.",
-          "Anh/Chị muốn trò chuyện về chủ đề nào nhất ạ?"
-        ],
-        chips: ['Đường đi Bắc Lệ 🗺️', 'Kể về Đền Bắc Lệ ⛩️', 'Kể về Workshop 🎶', 'Kể về Gift Box 📦']
-      };
-    }
 
-    // 2C. Workshop Di sản
-    if (cleanInput.indexOf('workshop') !== -1 || cleanInput.indexOf('hoc hat then') !== -1 || cleanInput.indexOf('nhac cu') !== -1 || cleanInput.indexOf('trai nghiem di san') !== -1 || cleanInput.indexOf('heritage') !== -1 || cleanInput.indexOf('craft') !== -1) {
+    // 2B. WORKSHOP DI SẢN
+    if (cleanInput.indexOf('workshop') !== -1 || cleanInput.indexOf('nhac cu') !== -1 || cleanInput.indexOf('hat then') !== -1 || cleanInput.indexOf('trai nghiem') !== -1) {
       userSession.step = 'WAITING_GROUP_TYPE';
-      return isEn ? {
-        bubbles: [
-          "Bac Le Sacred Echo Heritage Workshops offer interactive **'Living with Heritage'** experiences 🎶!",
-          "During the workshop, you can:\n1️⃣ Handcraft traditional musical instruments.\n2️⃣ Try on Tay-Nung ethnic costumes.\n3️⃣ Practice Then singing, Tinh lute & Cat-Lion dance.\n4️⃣ Enjoy live Chau Van ritual performances with artisans.",
-          "Are you looking to join as an individual/family or with a student/tour group?"
-        ],
-        chips: ['Individual / Family 👨‍‍👩‍👧', 'Student / School Group 🎒', 'Tour Group 🚌']
-      } : {
-        bubbles: [
-          "Dạ! Workshop di sản của Bắc Lệ Sacred Echo là không gian tương tác trực tiếp **'Sống cùng di sản'** vô cùng hấp dẫn ạ 🎶!",
-          "Khi tham gia workshop, anh/chị sẽ được:\n1️⃣ Tự tay làm & chế tác nhạc cụ dân tộc.\n2️⃣ Thử mặc trang phục dân tộc Tày - Nùng.\n3️⃣ Thực hành hát Then, đàn Tính, Sli & múa Sư tử mèo.\n4️⃣ Giao lưu hầu Chầu Văn thực cảnh cùng các nghệ nhân dân gian.",
-          "Anh/Chị định đăng ký tham gia cho cá nhân, gia đình hay đoàn học sinh/du khách ạ?"
-        ],
-        chips: ['Cá nhân / Gia đình 👨‍👩‍👧', 'Đoàn học sinh / Trường học 🎒', 'Khách đoàn du lịch 🚌']
-      };
+      var workshopVi = [
+        [
+          "Dạ! Workshop di sản của Bắc Lệ Sacred Echo là không gian tương tác **'Sống cùng di sản'** cực kỳ sôi nổi ạ 🎶!",
+          "Khi tham gia workshop, anh/chị sẽ được:\n1️⃣ Tự tay làm & chế tác nhạc cụ Đàn Tính.\n2️⃣ Thử mặc trang phục dân tộc Tày - Nùng rực rỡ.\n3️⃣ Thực hành hát Then, đàn Tính & múa Sư tử mèo.\n4️⃣ Giao lưu hát Chầu Văn thực cảnh cùng nghệ nhân bản địa.",
+          "Anh/Chị định đăng ký tham gia cho cá nhân, gia đình hay đoàn học sinh/du khách vậy ạ?"
+        ]
+      ];
+      return { bubbles: getRandom(workshopVi), chips: ['Cá nhân / Gia đình 👨‍👩‍👧', 'Đoàn học sinh / Trường học 🎒', 'Khách đoàn du lịch 🚌'] };
     }
 
-    // 2D. Giá / Chi phí Workshop
-    if (cleanInput.indexOf('gia') !== -1 || cleanInput.indexOf('ve') !== -1 || cleanInput.indexOf('chi phi') !== -1 || cleanInput.indexOf('price') !== -1 || cleanInput.indexOf('cost') !== -1 || cleanInput.indexOf('fee') !== -1 || cleanInput.indexOf('ticket') !== -1) {
-      userSession.step = 'WAITING_GROUP_TYPE';
-      return isEn ? {
-        bubbles: [
-          "Workshop fees are flexible with special discounts depending on visitor groups 💰:",
-          "• **Individuals / Families:** Affordable rates covering all craft materials & costume rentals.\n• **Student Groups:** Discounted educational STEM rates.\n• **Tour Groups:** Customized program packages.",
-          "Are you visiting solo/family or in a group?"
-        ],
-        chips: ['Individual / Family', 'Student Group', 'Tour Group']
-      } : {
-        bubbles: [
-          "Dạ chi phí tham gia Workshop rất linh hoạt và có chính sách ưu đãi riêng cho từng nhóm du khách ạ 💰:",
-          "• **Cá nhân / Gia đình:** Chi phí nhẹ nhàng, hỗ trợ trọn gói vật liệu & trang phục.\n• **Đoàn Học sinh / Sinh viên:** Ưu đãi đặc biệt theo mô hình trải nghiệm Giáo dục liên môn STEM.\n• **Khách đoàn Du lịch:** Thiết kế chương trình trải nghiệm riêng.",
-          "Anh/Chị tham gia theo hình thức cá nhân hay theo đoàn để em gửi báo giá phù hợp nhất ạ?"
-        ],
-        chips: ['Đi cá nhân / Gia đình', 'Đi đoàn học sinh', 'Đi đoàn du lịch']
-      };
-    }
-
-    // 2E. Gift Box & Food Box
-    if (cleanInput.indexOf('gift box') !== -1 || cleanInput.indexOf('food box') !== -1 || cleanInput.indexOf('goi qua') !== -1 || cleanInput.indexOf('dac san') !== -1 || cleanInput.indexOf('qua tang') !== -1 || cleanInput.indexOf('gift') !== -1 || cleanInput.indexOf('box') !== -1 || cleanInput.indexOf('souvenir') !== -1) {
-      userSession.step = 'WAITING_GIFT_CHOICE';
-      return isEn ? {
-        bubbles: [
-          "Our Heritage Gift Boxes & Food Boxes featuring **Multilingual QR Audio Guides** come in 2 options 🎁:",
-          "📦 **Standard Set ($6 - $8):** Herbal sachet, Tay-Nung doll keychain, local delicacies & QR guide card.\n✨ **Premium Set ($10 - $14):** Mini Tinh lute replica, OCOP produce box, brocade scarf, Postcards & exclusive QR digital guide access.",
-          "Would you like to know more about the Standard or Premium Set?"
-        ],
-        chips: ['Standard Set ($6 - $8)', 'Premium Set ($10 - $14)', 'Learn about QR Guides']
-      } : {
-        bubbles: [
+    // 2C. GIFT BOX & FOOD BOX QR
+    if (cleanInput.indexOf('gift box') !== -1 || cleanInput.indexOf('food box') !== -1 || cleanInput.indexOf('qua tang') !== -1 || cleanInput.indexOf('dac san') !== -1) {
+      var giftVi = [
+        [
           "Dạ bộ sản phẩm Gift Box & Food Box di sản Bắc Lệ tích hợp **Mã QR Thuyết Minh Số** đang có 2 gói thiết kế tinh tế ạ 🎁:",
-          "📦 **Gói Tiêu Chuẩn (150.000 – 180.000 VNĐ):** Túi thơm thảo mộc, móc khóa búp bê Tày Nùng, hũ đặc sản & thẻ thuyết minh QR.\n✨ **Gói Cao Cấp (250.000 – 350.000 VNĐ):** Mô hình Đàn Tính mini, hộp nông sản OCOP, khăn thêu thổ cẩm, Postcard & thẻ QR đặc quyền.",
+          "📦 **Gói Tiêu Chuẩn (150.000 – 180.000 VNĐ):** Túi thơm thảo mộc, móc khóa búp bê Tày Nùng, hũ đặc sản Lạng Sơn & thẻ thuyết minh QR.\n✨ **Gói Cao Cấp (250.000 – 350.000 VNĐ):** Mô hình Đàn Tính mini, hộp nông sản OCOP, khăn thêu thổ cẩm & thẻ QR đặc quyền.",
           "Anh/Chị muốn tìm hiểu kĩ hơn về Gói Tiêu Chuẩn hay Gói Cao Cấp ạ?"
-        ],
-        chips: ['Gói Tiêu Chuẩn (150k-180k)', 'Gói Cao Cấp (250k-350k)', 'Tìm hiểu về Mã QR Thuyết Minh']
-      };
+        ]
+      ];
+      return { bubbles: getRandom(giftVi), chips: ['Gói Tiêu Chuẩn (150k-180k)', 'Gói Cao Cấp (250k-350k)', 'Tìm hiểu về Mã QR Thuyết Minh'] };
     }
 
-    // 2F. Mã QR / Thuyết minh số
-    if (cleanInput.indexOf('ma qr') !== -1 || cleanInput.indexOf('thuyet minh') !== -1 || cleanInput.indexOf('cong nghe') !== -1 || cleanInput.indexOf('qr') !== -1 || cleanInput.indexOf('audio') !== -1 || cleanInput.indexOf('guide') !== -1) {
-      return isEn ? {
-        bubbles: [
-          "The QR Digital Audio Guide technology is a key highlight of our project 📲!",
-          "Every Gift Box and heritage spot has a QR code. Simply scan with your smartphone camera to listen to multilingual audio guides and watch living heritage videos anywhere, anytime."
-        ],
-        chips: ['See QR Gift Box Sample', 'Register Heritage Workshop', 'Contact Us']
-      } : {
-        bubbles: [
-          "Dạ công nghệ Mã QR Thuyết Minh Số là điểm đột phá của dự án bên em ạ 📲!",
-          "Mỗi hộp quà Gift Box hay điểm di tích Đền Bắc Lệ đều gắn mã QR. Chỉ cần quét bằng Zalo hoặc Camera điện thoại, anh/chị có thể thưởng thức thuyết minh đa ngôn ngữ & xem các video tái hiện di sản hát Then, Chầu văn mọi lúc mọi nơi."
-        ],
-        chips: ['Xem thử mẫu Gift Box QR', 'Đăng ký Workshop di sản', 'Liên hệ tư vấn']
-      };
+    // 2D. LIÊN HỆ FANPAGE / HOTLINE
+    if (cleanInput.indexOf('lien he') !== -1 || cleanInput.indexOf('fanpage') !== -1 || cleanInput.indexOf('facebook') !== -1 || cleanInput.indexOf('sdt') !== -1) {
+      var contactVi = [
+        [
+          "Dạ đây là thông tin kết nối chính thức của dự án BẮC LỆ - SACRED ECHO ạ 📞:",
+          "🏫 **Đơn vị thực hiện:** Nhóm học sinh Trường THPT Tân Thành (xã Tân Thành, Lạng Sơn).\n🌐 **Facebook Page:** <a href='https://web.facebook.com/share/19a5dty6Vb/' target='_blank'><b>Fanpage Bắc Lệ Sacred Echo</b></a>\n👩‍🎓 **Đại diện nhóm:** Phùng Diệu Anh (Lớp 12A1)."
+        ]
+      ];
+      return { bubbles: getRandom(contactVi), chips: ['Trải nghiệm ngay 📞', 'Đăng ký Workshop', 'Xem bộ Gift Box QR'] };
     }
 
-    // 2G. Tắm lá / Thảo dược
-    if (cleanInput.indexOf('tam la') !== -1 || cleanInput.indexOf('thao duoc') !== -1 || cleanInput.indexOf('ngam chan') !== -1 || cleanInput.indexOf('goi dau') !== -1 || cleanInput.indexOf('suc khoe') !== -1 || cleanInput.indexOf('herbal') !== -1 || cleanInput.indexOf('bath') !== -1 || cleanInput.indexOf('wellness') !== -1 || cleanInput.indexOf('spa') !== -1) {
-      return isEn ? {
-        bubbles: [
-          "We offer relaxing herbal wellness services 🌿:",
-          "• Traditional Red Dao herbal leaf baths.\n• Herbal hair washing & foot soaks for blood circulation.\n• Relaxing local herbal drinks at **'Pi noong shop'**."
-        ],
-        chips: ['Herbal bath inquiry', 'Heritage Workshop', 'Book a appointment']
-      } : {
-        bubbles: [
-          "Dạ bên em có chuỗi dịch vụ chăm sóc sức khỏe thảo dược tự nhiên vô cùng thư giãn ạ 🌿:",
-          "• Bài thuốc tắm lá đặc truyền của người Dao.\n• Gội đầu dưỡng sinh & Ngâm chân thảo dược giúp lưu thông khí huyết.\n• Thưởng thức đồ uống tại tiệm **'Pỉ noong shop'**."
-        ],
-        chips: ['Tư vấn dịch vụ tắm lá', 'Trải nghiệm Workshop di sản', 'Liên hệ đặt chỗ']
-      };
-    }
-
-    // 2H. LIÊN HỆ PAGE CHO LINK FB
-    if (cleanInput.indexOf('lien he') !== -1 || cleanInput.indexOf('sdt') !== -1 || cleanInput.indexOf('fanpage') !== -1 || cleanInput.indexOf('facebook') !== -1 || cleanInput.indexOf('fb') !== -1 || cleanInput.indexOf('dat tour') !== -1 || cleanInput.indexOf('contact') !== -1 || cleanInput.indexOf('phone') !== -1 || cleanInput.indexOf('book') !== -1 || cleanInput.indexOf('call') !== -1 || cleanInput.indexOf('page') !== -1) {
-      return isEn ? {
-        bubbles: [
-          "Here is the official contact info & Facebook Page for BAC LE - SACRED ECHO 📞:",
-          "🏫 **Executing Team:** Students of Tan Thanh High School (Lang Son, Vietnam).\n🌐 **Facebook Fanpage:** <a href='https://web.facebook.com/share/19a5dty6Vb/' target='_blank'><b>Bac Le Sacred Echo Fanpage</b></a>\n👩🎓 **Student Team Leaders:** Phung Dieu Anh & Nguyen Thi Lan."
-        ],
-        chips: ['Open FB Fanpage 💬', 'Register Workshop', 'Order Gift Boxes']
-      } : {
-        bubbles: [
-          "Dạ đây là thông tin liên hệ chính thức & Link Fanpage Facebook của dự án BẮC LỆ - SACRED ECHO ạ 📞:",
-          "🏫 **Đơn vị thực hiện:** Nhóm học sinh Trường THPT Tân Thành (xã Tân Thành, Hữu Lũng, Lạng Sơn).\n🌐 **Facebook Page:** <a href='https://web.facebook.com/share/19a5dty6Vb/' target='_blank'><b>Fanpage Bắc Lệ Sacred Echo</b></a>\n👩‍‍🎓 **Trưởng nhóm:** Phùng Diệu Anh (Lớp 12A1)."
-        ],
-        chips: ['Trải nghiệm ngay 📞', 'Đăng ký Workshop', 'Xem bộ Gift Box QR']
-      };
-    }
-
-    // 2I. Chào hỏi
-    if (cleanInput.indexOf('xin chao') !== -1 || cleanInput.indexOf('chao') !== -1 || cleanInput.indexOf('hi') !== -1 || cleanInput.indexOf('hello') !== -1 || cleanInput.indexOf('hey') !== -1) {
-      return isEn ? {
-        bubbles: [
-          "Hello! Welcome to Bac Le Sacred Echo 🌾.",
-          "We are a student project team from Tan Thanh High School. Delighted to assist you!",
-          "Are you interested in our Heritage Workshops, QR Gift Boxes, directions, or Green Eco-Tourism experiences in Bac Le?"
-        ],
-        chips: ['Directions to Bac Le 🗺️', 'Heritage Workshops 🎶', 'QR Gift Boxes 📦', 'FB Page Contact 📞']
-      } : {
-        bubbles: [
+    // 2E. CHÀO HỎI
+    if (cleanInput.indexOf('xin chao') !== -1 || cleanInput.indexOf('chao') !== -1 || cleanInput.indexOf('hi') !== -1 || cleanInput.indexOf('hello') !== -1) {
+      var greetings = [
+        [
           "Dạ em chào anh/chị ạ! 🌾",
-          "Tụi mình là nhóm học sinh thực hiện dự án BẮC LỆ - SACRED ECHO (Trường THPT Tân Thành). Rất vui được hỗ trợ anh/chị!",
-          "Anh/Chị muốn tìm hiểu về đường đi, Workshop di sản, chuỗi Gift Box QR hay liên hệ Page Facebook ạ?"
-        ],
-        chips: ['Đường đi Bắc Lệ 🗺️', 'Workshop di sản 🎶', 'Gift Box & Food Box QR 📦', 'Liên hệ Fanpage FB 📞']
-      };
-    }
-
-    // 2J. Cảm ơn
-    if (cleanInput.indexOf('cam on') !== -1 || cleanInput.indexOf('thank') !== -1 || cleanInput.indexOf('ok') !== -1 || cleanInput.indexOf('bye') !== -1) {
-      return isEn ? {
-        bubbles: [
-          "You are very welcome! We are happy to share the vibrant heritage of Bac Le with you ❤.",
-          "Feel free to message us anytime if you have more questions!"
-        ],
-        chips: ['Explore Other Services', 'Contact FB Fanpage']
-      } : {
-        bubbles: [
-          "Dạ không có gì đâu ạ! Tụi mình rất vui khi được chia sẻ nét đẹp văn hóa Bắc Lệ đến anh/chị ❤.",
-          "Nếu cần thêm thông tin gì anh/chị cứ nhắn tụi mình bất cứ lúc nào nha!"
-        ],
-        chips: ['Tìm hiểu thêm dịch vụ khác', 'Liên hệ Fanpage FB']
-      };
+          "Tụi mình là nhóm học sinh thực hiện dự án BẮC LỆ - SACRED ECHO (Trường THPT Tân Thành, Lạng Sơn). Rất vui được hỗ trợ anh/chị!",
+          "Anh/Chị muốn tìm hiểu về đường đi, Workshop di sản hay chuỗi Gift Box QR ạ?"
+        ]
+      ];
+      return { bubbles: getRandom(greetings), chips: ['Đường đi Bắc Lệ 🗺️', 'Workshop di sản 🎶', 'Gift Box & Food Box QR 📦', 'Liên hệ Fanpage FB 📞'] };
     }
 
     // -------------------------------------------------------------
-    // TRƯỜNG HỢP MẶC ĐỊNH (DEFAULT FALLBACK)
+    // 3. CÂU MẶC ĐỊNH KHI KHÔNG KHỚP TỪ KHÓA
     // -------------------------------------------------------------
-    return isEn ? {
-      bubbles: [
-        "Thank you for your message 🥰!",
-        "To get the fastest and most accurate answers, you can choose one of the suggested topics below or contact directly via <a href='https://web.facebook.com/share/19a5dty6Vb/' target='_blank'><b>Fanpage \"Bac Le Sacred Echo\"</b></a>!"
-      ],
-      chips: ['Directions to Bac Le 🗺️', 'Heritage Workshops 🎶', 'QR Gift Boxes 📦', 'FB Page Contact 💬']
-    } : {
-      bubbles: [
-        "Dạ em đã ghi nhận thông tin của anh/chị rồi ạ 🥰!",
-        "Để được giải đáp nhanh chóng và chính xác nhất, anh/chị có thể chọn các chủ đề gợi ý bên dưới hoặc nhắn trực tiếp tới <a href='https://web.facebook.com/share/19a5dty6Vb/' target='_blank'><b>Fanpage \"Bắc Lệ Sacred Echo\"</b></a> nhé!"
-      ],
-      chips: ['Đường đi Bắc Lệ 🗺️', 'Workshop di sản 🎶', 'Gift Box QR 📦', 'Liên hệ Fanpage FB 💬']
-    };
+    var defaultVi = [
+      [
+        "Dạ em đã ghi nhận câu hỏi của anh/chị rồi ạ 🥰!",
+        "Để em giải đáp chuẩn nhất, anh/chị có thể bấm chọn nhanh các chủ đề hot bên dưới hoặc nhắn trực tiếp tới <a href='https://web.facebook.com/share/19a5dty6Vb/' target='_blank'><b>Fanpage \"Bắc Lệ Sacred Echo\"</b></a> nhé!"
+      ]
+    ];
+    return { bubbles: getRandom(defaultVi), chips: ['Đường đi Bắc Lệ 🗺️', 'Workshop di sản 🎶', 'Gift Box QR 📦', 'Liên hệ Fanpage FB 💬'] };
   }
 
   function handleSend(text) {
@@ -943,7 +949,7 @@ themeToggleBtn.addEventListener('click', function(){
           "How can we help you explore our living heritage project today?"
         ]
       : [
-          "Dạ chào bạn! Tụi mình là nhóm học sinh thực hiện dự án BẮC LỆ - SACRED ECHO 🌿.",
+          "Dạ chào bạn! Tụi mình là nhóm học sinh thực hiện dự án BẮC LỆ - SACRED ECHO (xã Tân Thành, Lạng Sơn) 🌿.",
           "Bạn đang quan tâm đến đường đi, Workshop di sản, bộ Gift Box QR hay liên hệ Page Facebook Bắc Lệ vậy ạ?"
         ];
 
