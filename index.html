@@ -68,7 +68,7 @@ a{color:inherit}
 .gallery-card p{margin:0;padding:12px;font-size:.88rem;font-weight:600;color:var(--ink);text-align:center;background:var(--surface)}
 .badge-album{position:absolute;top:8px;right:8px;background:rgba(0,0,0,0.65);color:#fff;font-size:0.75rem;padding:3px 8px;border-radius:12px;backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,0.3)}
 
-/* Lightbox Popup Album Ảnh Nâng Cấp (Chuyển slide, tự đổi ảnh sau 10s) */
+/* Lightbox Popup Album Ảnh Nâng Cấp */
 .lightbox-modal{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.88);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity 0.3s ease;backdrop-filter:blur(5px)}
 .lightbox-modal.active{opacity:1;pointer-events:auto}
 .lightbox-content{max-width:850px;width:100%;background:var(--surface);border-radius:16px;overflow:hidden;box-shadow:0 15px 40px rgba(0,0,0,0.5);display:flex;flex-direction:column;align-items:center;position:relative;border:1px solid var(--line);transform:scale(0.9);transition:transform 0.3s ease}
@@ -103,9 +103,16 @@ summary::after{content:"+";color:var(--primary);font-size:1.3rem;line-height:1}
 details[open] summary::after{content:"–"}
 details p,details ul{margin:0 0 14px;color:var(--muted)}
 details ul{padding-left:20px}
-.cta{margin-top:22px;background:var(--foam);border:1px solid var(--line);border-radius:14px;padding:18px 20px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
-.cta .book{box-shadow:none}
-footer{text-align:center;color:var(--muted);font-size:.88rem;padding:0 16px 32px}
+
+/* CHỈNH SỬA KHỐI CẢO SÁT CHIA 2 MẢNG TRƯỚC VÀ SAU TRẢI NGHIỆM */
+.survey-section{margin-top:22px;display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:16px}
+.survey-card{background:var(--foam);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column;justify-content:space-between;gap:14px;box-shadow:0 2px 6px rgba(0,0,0,0.03)}
+.survey-card h3{margin:0 0 6px;font-size:1.05rem;color:var(--primary)}
+.survey-card p{margin:0;font-size:0.88rem;color:var(--muted);line-height:1.45}
+.survey-card .btn-survey{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--sun);color:var(--sun-ink);font-weight:700;text-decoration:none;padding:10px 16px;border-radius:999px;transition:transform 0.15s, background 0.15s;text-align:center}
+.survey-card .btn-survey:hover{transform:translateY(-1px);filter:brightness(1.05)}
+
+footer{text-align:center;color:var(--muted);font-size:.88rem;padding:24px 16px 32px}
 
 .fab{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:20;width:64px;height:64px;padding:0;border-radius:50%;border:3px solid var(--primary);background:var(--surface);cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.28);overflow:hidden}
 .fab img{width:100%;height:100%;display:block;object-fit:cover}
@@ -242,15 +249,32 @@ footer{text-align:center;color:var(--muted);font-size:.88rem;padding:0 16px 32px
       <details><summary data-i18n="q10">Ý nghĩa tác động xã hội & sinh kế bền vững?</summary><p data-i18n="a10">Bảo tồn và đưa di sản hát Then, Chầu văn vào đời sống thường nhật; Tạo công ăn việc làm, nâng cao thu nhập cho nghệ nhân và bà con nông dân xã Tân Thành; Đổi mới giáo dục liên môn và khơi dậy tinh thần yêu nước, khởi nghiệp cho thế hệ trẻ.</p></details>
     </div>
 
-    <div class="cta">
-      <span><b data-i18n="cta_title">Bạn muốn trải nghiệm không gian di sản & du lịch xanh Bắc Lệ?</b><br><span data-i18n="cta_desc">Đơn vị thực hiện: Nhóm học sinh Trường THPT Tân Thành (Liên hệ Fanpage "Bắc Lệ Sacred Echo").</span></span>
-      <a class="book" href="https://web.facebook.com/share/19a5dty6Vb/?mibextid=wwXIfr&_rdc=1&_rdr" target="_blank">📞 <span data-i18n="book_now">Trải Nghiệm Ngay</span></a>
+    <!-- MẢNG KHẢO SÁT CHIA LÀM 2 BÊN TRƯỚC VÀ SAU TRẢI NGHIỆM -->
+    <div class="survey-section">
+      <!-- Mảng bên trái: Trước trải nghiệm -->
+      <div class="survey-card">
+        <div>
+          <h3 data-i18n="survey_pre_title">📋 Khảo Sát Trước Trải Nghiệm</h3>
+          <p data-i18n="survey_pre_desc">Dành cho du khách chuẩn bị ghé thăm. Giúp nhóm thấu hiểu nhu cầu và chuẩn bị đón tiếp chu đáo nhất!</p>
+        </div>
+        <a class="btn-survey" href="https://forms.gle/gBGSanfJTKeCTQzd7" target="_blank">📝 <span data-i18n="btn_survey_pre">Làm Khảo Sát Trước</span></a>
+      </div>
+
+      <!-- Mảng bên phải: Sau trải nghiệm -->
+      <div class="survey-card">
+        <div>
+          <h3 data-i18n="survey_post_title">⭐ Khảo Sát Sau Trải Nghiệm</h3>
+          <p data-i18n="survey_post_desc">Dành cho du khách đã tham gia tour/workshop. Hãy chia sẻ cảm nhận để tụi mình hoàn thiện hơn nhé!</p>
+        </div>
+        <a class="btn-survey" href="https://forms.gle/jdacYTpfHWSFN1Nt8" target="_blank">🌟 <span data-i18n="btn_survey_post">Làm Khảo Sát Sau</span></a>
+      </div>
     </div>
+
   </section>
 </main>
 <footer>© 2026 BẮC LỆ - SACRED ECHO · Trường THPT Tân Thành, Xã Tân Thành, Tỉnh Lạng Sơn</footer>
 
-<!-- Modal Popup Album Phóng To Ảnh (Tự động đổi ảnh mỗi 10 giây & Tự do chuyển slide) -->
+<!-- Modal Popup Album Phóng To Ảnh -->
 <div class="lightbox-modal" id="lightbox-modal">
   <div class="lightbox-content">
     <button class="lightbox-close" id="lightbox-close" aria-label="Đóng">&times;</button>
@@ -319,8 +343,12 @@ var i18nData = {
     a9: "Dự án tự chủ tài chính nhờ đa dạng hóa nguồn thu từ kênh Offline & Online: Phí tham gia Workshop & Tour trải nghiệm; Vé tham quan; Doanh số bán bộ Gift Box & Food Box nông sản QR; Dịch vụ lưu trú, ăn uống ẩm thực; Cho thuê trang phục dân tộc; Dịch vụ chăm sóc sức khỏe thảo dược và Tiệm \"Pỉ noong shop\".",
     q10: "Ý nghĩa tác động xã hội & sinh kế bền vững?",
     a10: "Bảo tồn và đưa di sản hát Then, Chầu văn vào đời sống thường nhật; Tạo công ăn việc làm, nâng cao thu nhập cho nghệ nhân và bà con nông dân xã Tân Thành; Đổi mới giáo dục liên môn và khơi dậy tinh thần yêu nước, khởi nghiệp cho thế hệ trẻ.",
-    cta_title: "Bạn muốn trải nghiệm không gian di sản & du lịch xanh Bắc Lệ?",
-    cta_desc: "Đơn vị thực hiện: Nhóm học sinh Trường THPT Tân Thành (Liên hệ Fanpage \"Bắc Lệ Sacred Echo\").",
+    survey_pre_title: "📋 Khảo Sát Trước Trải Nghiệm",
+    survey_pre_desc: "Dành cho du khách chuẩn bị ghé thăm. Giúp nhóm thấu hiểu nhu cầu và chuẩn bị đón tiếp chu đáo nhất!",
+    btn_survey_pre: "Làm Khảo Sát Trước",
+    survey_post_title: "⭐ Khảo Sát Sau Trải Nghiệm",
+    survey_post_desc: "Dành cho du khách đã tham gia tour/workshop. Hãy chia sẻ cảm nhận để tụi mình hoàn thiện hơn nhé!",
+    btn_survey_post: "Làm Khảo Sát Sau",
     bot_name: "Trợ Lý Bắc Lệ Sacred Echo", bot_sub: "Kết nối văn hóa – Kiến tạo trải nghiệm",
     btn_send: "Gửi", placeholder: "Hỏi gì cứ tự nhiên nhắn tụi mình nha...",
     default_chips: ['Đường đi Bắc Lệ 🗺️', 'Workshop di sản 🎶', 'Gift Box QR 📦', 'Liên hệ Fanpage FB 📞']
@@ -362,8 +390,12 @@ var i18nData = {
     a9: "Financial self-sustainability via multi-stream revenue: Workshop & tour fees; Entrance/experience fees; Sales of QR Gift & Food Boxes; Homestay & food catering; Ethnic costume rentals; Herbal wellness services and 'Pi noong shop'.",
     q10: "What is the social impact and sustainability?",
     a10: "Preserving and bringing Then singing and Chau Van into daily community life; Generating stable jobs and income for artisans and Tan Thanh farmers; Transforming educational methods and fostering youth entrepreneurship.",
-    cta_title: "Want to experience Bac Le's living heritage & eco-tourism?",
-    cta_desc: "Execution Team: Tan Thanh High School Students (Contact Fanpage 'Bac Le Sacred Echo').",
+    survey_pre_title: "📋 Pre-Experience Survey",
+    survey_pre_desc: "For visitors planning a visit. Helps us understand your preferences and offer the best hospitality!",
+    btn_survey_pre: "Take Pre-Survey",
+    survey_post_title: "⭐ Post-Experience Survey",
+    survey_post_desc: "For visitors who have completed the tour/workshop. Share your feedback to help us improve!",
+    btn_survey_post: "Take Post-Survey",
     bot_name: "Bac Le Sacred Echo Assistant", bot_sub: "Connecting Cultures – Creating Experiences",
     btn_send: "Send", placeholder: "Feel free to ask us anything...",
     default_chips: ['Đường đi Bắc Lệ 🗺️', 'Workshop di sản 🎶', 'Gift Box QR 📦', 'Liên hệ Fanpage FB 📞']
@@ -622,7 +654,6 @@ var albumData = {
     return arr[Math.floor(Math.random() * arr.length)];
   }
 
-  // Hàm bỏ dấu & loại bỏ emoji/ký tự đặc biệt để so sánh chính xác
   function removeAccents(str) {
     if (!str) return '';
     return str
@@ -630,7 +661,7 @@ var albumData = {
       .replace(/[\u1E00-\u1EFF]/g, '')
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '')
-      .replace(/[^\w\s]/gi, '') // Bỏ hết emoji và ký tự đặc biệt
+      .replace(/[^\w\s]/gi, '')
       .toLowerCase()
       .trim();
   }
@@ -726,7 +757,6 @@ var albumData = {
     b.type = 'button';
     b.textContent = q;
     b.onclick = function(){
-      // Lọc bỏ toàn bộ emoji và ký tự ẩn đặc biệt trước khi gửi
       var textToSend = q.replace(/[\u{1F300}-\u{1F9FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]|[\u{FE00}-\u{FE0F}]/gu, '').trim();
       handleSend(textToSend);
     };
@@ -736,15 +766,11 @@ var albumData = {
   cl.scrollTop = cl.scrollHeight;
 }
 
-  // BỘ XỬ LÝ BẮT TỪ KHÓA TỐI ƯU
   function processUserInput(userInput) {
     var rawInput = userInput.trim();
     var cleanInput = removeAccents(rawInput);
     var isEn = currentLang === 'en';
 
-    // -------------------------------------------------------------
-    // 0. KHÁCH CẢM THÁN / KHEN NGỢI
-    // -------------------------------------------------------------
     var isExclamation = 
       cleanInput.indexOf('hay qua') !== -1 || cleanInput.indexOf('hap dan qua') !== -1 ||
       cleanInput.indexOf('tuyet voi') !== -1 || cleanInput.indexOf('nghe hay') !== -1 ||
@@ -775,9 +801,6 @@ var albumData = {
       }
     }
 
-    // -------------------------------------------------------------
-    // 1. PHẢN HỒI THEO MẠCH HỘI THOẠI
-    // -------------------------------------------------------------
     if (userSession.step === 'WAITING_GROUP_TYPE') {
       if (cleanInput.indexOf('ca nhan') !== -1 || cleanInput.indexOf('gia dinh') !== -1 || cleanInput.indexOf('1') !== -1 || cleanInput.indexOf('2') !== -1) {
         userSession.groupType = 'ca_nhan';
@@ -813,9 +836,6 @@ var albumData = {
       };
     }
 
-    // -------------------------------------------------------------
-    // 2. PHỦ RỘNG TỪ KHÓA & NHẬN DIỆN ĐƯỜNG ĐI (ĐÃ FIX TRIỆT ĐỂ)
-    // -------------------------------------------------------------
     var isRouteQuery = 
       cleanInput.indexOf('duong di') !== -1 || 
       cleanInput.indexOf('chi duong') !== -1 || 
@@ -872,7 +892,6 @@ var albumData = {
       }
     }
 
-    // 2B. WORKSHOP DI SẢN
     if (cleanInput.indexOf('workshop') !== -1 || cleanInput.indexOf('nhac cu') !== -1 || cleanInput.indexOf('hat then') !== -1 || cleanInput.indexOf('trai nghiem') !== -1) {
       userSession.step = 'WAITING_GROUP_TYPE';
       var workshopVi = [
@@ -885,7 +904,6 @@ var albumData = {
       return { bubbles: getRandom(workshopVi), chips: ['Cá nhân / Gia đình 👨‍👩‍👧', 'Đoàn học sinh / Trường học 🎒', 'Khách đoàn du lịch 🚌'] };
     }
 
-    // 2C. GIFT BOX & FOOD BOX QR
     if (cleanInput.indexOf('gift box') !== -1 || cleanInput.indexOf('food box') !== -1 || cleanInput.indexOf('qua tang') !== -1 || cleanInput.indexOf('dac san') !== -1) {
       var giftVi = [
         [
@@ -897,7 +915,6 @@ var albumData = {
       return { bubbles: getRandom(giftVi), chips: ['Gói Tiêu Chuẩn (150k-180k)', 'Gói Cao Cấp (250k-350k)', 'Tìm hiểu về Mã QR Thuyết Minh'] };
     }
 
-    // 2D. LIÊN HỆ FANPAGE / HOTLINE
     if (cleanInput.indexOf('lien he') !== -1 || cleanInput.indexOf('fanpage') !== -1 || cleanInput.indexOf('facebook') !== -1 || cleanInput.indexOf('sdt') !== -1) {
       var contactVi = [
         [
@@ -908,7 +925,6 @@ var albumData = {
       return { bubbles: getRandom(contactVi), chips: ['Trải nghiệm ngay 📞', 'Đăng ký Workshop', 'Xem bộ Gift Box QR'] };
     }
 
-    // 2E. CHÀO HỎI
     if (cleanInput.indexOf('xin chao') !== -1 || cleanInput.indexOf('chao') !== -1 || cleanInput.indexOf('hi') !== -1 || cleanInput.indexOf('hello') !== -1) {
       var greetings = [
         [
@@ -920,9 +936,6 @@ var albumData = {
       return { bubbles: getRandom(greetings), chips: ['Đường đi Bắc Lệ 🗺️', 'Workshop di sản 🎶', 'Gift Box & Food Box QR 📦', 'Liên hệ Fanpage FB 📞'] };
     }
 
-    // -------------------------------------------------------------
-    // 3. CÂU MẶC ĐỊNH KHI KHÔNG KHỚP TỪ KHÓA
-    // -------------------------------------------------------------
     var defaultVi = [
       [
         "Dạ em đã ghi nhận câu hỏi của anh/chị rồi ạ 🥰!",
