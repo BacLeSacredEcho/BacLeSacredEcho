@@ -34,9 +34,13 @@ a{color:inherit}
 .mini-lan.right{animation-delay:0.3s}
 @keyframes lanBounce{0%,100%{transform:translateY(0) rotate(0deg)} 50%{transform:translateY(-4px) rotate(8deg)}}
 
-.nav-controls{display:flex;align-items:center;gap:10px}
+.nav-controls{display:flex;align-items:center;gap:8px}
 .icon-btn{background:var(--surface);border:1px solid var(--line);color:var(--ink);padding:6px 12px;border-radius:999px;cursor:pointer;font-weight:600;font-size:.88rem;display:inline-flex;align-items:center;gap:4px}
 .icon-btn:hover{border-color:var(--primary)}
+
+/* Hiệu ứng nốt nhạc xoay khi đang bật nhạc */
+.music-btn.playing .music-icon{animation:musicSpin 2s infinite linear}
+@keyframes musicSpin{0%{transform:rotate(0deg)} 100%{transform:rotate(360deg)}}
 
 .book{display:inline-flex;align-items:center;gap:8px;background:var(--sun);color:var(--sun-ink);font-weight:700;text-decoration:none;padding:10px 18px;border-radius:999px;box-shadow:0 2px 0 rgba(0,0,0,.15);transition:transform .15s}
 .book:hover{transform:translateY(-1px)}
@@ -64,18 +68,34 @@ a{color:inherit}
 .gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
 .gallery-card{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.05);display:flex;flex-direction:column;cursor:pointer;transition:transform 0.2s, box-shadow 0.2s;position:relative}
 .gallery-card:hover{transform:scale(1.02);box-shadow:0 4px 12px rgba(0,0,0,.15)}
-.gallery-card img{width:100%;height:180px;object-fit:cover;display:block}
-.gallery-card p{margin:0;padding:12px;font-size:.88rem;font-weight:600;color:var(--ink);text-align:center;background:var(--surface)}
-.badge-album{position:absolute;top:8px;right:8px;background:rgba(0,0,0,0.65);color:#fff;font-size:0.75rem;padding:3px 8px;border-radius:12px;backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,0.3)}
 
-/* Lightbox Popup Album Ảnh Nâng Cấp */
+/* KHỐI CHỨA ẢNH LẤP ĐẦY TOÀN BỘ KHUNG (COVER FULL) */
+.gallery-img-wrap{
+  width:100%;
+  height:200px;
+  overflow:hidden;
+  position:relative;
+  background:#000;
+}
+.gallery-card img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  display:block;
+}
+
+.gallery-card p{margin:0;padding:12px;font-size:.88rem;font-weight:600;color:var(--ink);text-align:center;background:var(--surface)}
+.badge-album{position:absolute;top:8px;right:8px;background:rgba(0,0,0,0.65);color:#fff;font-size:0.75rem;padding:3px 8px;border-radius:12px;backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,0.3);z-index:2}
+
+/* Lightbox Popup Album Ảnh Lấp Đầy Tràn Khung */
 .lightbox-modal{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.88);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity 0.3s ease;backdrop-filter:blur(5px)}
 .lightbox-modal.active{opacity:1;pointer-events:auto}
 .lightbox-content{max-width:850px;width:100%;background:var(--surface);border-radius:16px;overflow:hidden;box-shadow:0 15px 40px rgba(0,0,0,0.5);display:flex;flex-direction:column;align-items:center;position:relative;border:1px solid var(--line);transform:scale(0.9);transition:transform 0.3s ease}
 .lightbox-modal.active .lightbox-content{transform:scale(1)}
 
-.lightbox-slider{position:relative;width:100%;height:380px;background:#000;overflow:hidden;display:flex;align-items:center;justify-content:center}
-.lightbox-slider img{width:100%;height:100%;object-fit:cover;display:block;transition:opacity 0.5s ease-in-out}
+.lightbox-slider{position:relative;width:100%;height:420px;background:#000;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.lightbox-slider img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;transition:opacity 0.5s ease-in-out}
 
 .slider-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.5);color:#fff;border:none;width:42px;height:42px;border-radius:50%;cursor:pointer;font-size:1.2rem;display:flex;align-items:center;justify-content:center;transition:all 0.2s;z-index:5}
 .slider-btn:hover{background:var(--primary);color:#fff;scale:1.1}
@@ -150,6 +170,7 @@ footer{text-align:center;color:var(--muted);font-size:.88rem;padding:24px 16px 3
   <!-- Trang trí con lân mini trên tên thương hiệu -->
   <a class="brand" href="#"><img src="https://i.ibb.co/BK69d163/logo.jpg" alt="Logo Bắc Lệ Sacred Echo"><span class="mini-lan"></span><span> BẮC LỆ - SACRED ECHO</span><span class="mini-lan right"></span></a>
   <div class="nav-controls">
+    <button class="icon-btn music-btn" id="music-toggle" aria-label="Bật/Tắt nhạc nền"><span class="music-icon">🎵</span> <span id="music-text">Bật nhạc</span></button>
     <button class="icon-btn" id="theme-toggle" aria-label="Đổi giao diện">🌙 <span id="theme-text">Tối</span></button>
     <button class="icon-btn" id="lang-toggle" aria-label="Đổi ngôn ngữ">🌐 <span id="lang-text">EN</span></button>
     <a class="book" id="btn-book" href="https://web.facebook.com/share/19a5dty6Vb/?mibextid=wwXIfr&_rdc=1&_rdr" target="_blank">📞 <span class="long" data-i18n="book_now">Trải Nghiệm Ngay</span></a>
@@ -192,28 +213,36 @@ footer{text-align:center;color:var(--muted);font-size:.88rem;padding:24px 16px 3
         <!-- Thẻ 1: Đền Bắc Lệ Album -->
         <div class="gallery-card" data-album="den_bac_le">
           <span class="badge-album">3 ảnh 📸</span>
-          <img src="https://i.ibb.co/5Wq1qmpT/1791123876230-6054260761147410839-6054260761147410839-c9ba286a07cd2af51ba3390608396979.jpg" alt="Đền Mẫu Bắc Lệ Linh Thiêng">
+          <div class="gallery-img-wrap">
+            <img src="https://i.ibb.co/5Wq1qmpT/1791123876230-6054260761147410839-6054260761147410839-c9ba286a07cd2af51ba3390608396979.jpg" alt="Đền Mẫu Bắc Lệ Linh Thiêng">
+          </div>
           <p data-i18n="img_1">Đền Công Đồng Bắc Lệ Linh Thiêng</p>
         </div>
 
         <!-- Thẻ 2: Chầu Văn Album -->
         <div class="gallery-card" data-album="chau_van">
           <span class="badge-album">3 ảnh 📸</span>
-          <img src="https://i.ibb.co/S7V6x1Th/chau-van.jpg" alt="Chầu Văn">
+          <div class="gallery-img-wrap">
+            <img src="https://i.ibb.co/S7V6x1Th/chau-van.jpg" alt="Chầu Văn">
+          </div>
           <p data-i18n="img_2">Nghệ Thuật Hát Chầu Văn</p>
         </div>
 
         <!-- Thẻ 3: Gift Box QR Album -->
         <div class="gallery-card" data-album="gift_box">
           <span class="badge-album">3 ảnh 📸</span>
-          <img src="https://i.ibb.co/m5SYYRBH/Gift-Box.gif" alt="Chuỗi Gift Box Quà Tặng & Nông Sản QR">
+          <div class="gallery-img-wrap">
+            <img src="https://i.ibb.co/m5SYYRBH/Gift-Box.gif" alt="Chuỗi Gift Box Quà Tặng & Nông Sản QR">
+          </div>
           <p data-i18n="img_3">Chuỗi Gift Box Quà Tặng & Nông Sản QR</p>
         </div>
 
         <!-- Thẻ 4: Hát Then Album -->
         <div class="gallery-card" data-album="hat_then">
           <span class="badge-album">3 ảnh 📸</span>
-          <img src="https://i.ibb.co/bMcPBTym/H-t-Then.jpg" alt="Nghệ Thuật Hát Then">
+          <div class="gallery-img-wrap">
+            <img src="https://i.ibb.co/bMcPBTym/H-t-Then.jpg" alt="Nghệ Thuật Hát Then">
+          </div>
           <p data-i18n="img_4">Nghệ Thuật Hát Then</p>
         </div>
       </div>
@@ -303,7 +332,59 @@ footer{text-align:center;color:var(--muted);font-size:.88rem;padding:24px 16px 3
   <form class="cf" id="cf"><input id="ci" placeholder="Hỏi gì cứ tự nhiên nhắn tụi mình nha..." autocomplete="off" aria-label="Câu hỏi"><button id="cs" type="submit" data-i18n="btn_send">Gửi</button></form>
 </section>
 
+<!-- THẺ AUDIO PHÁT NHẠC NỀN -->
+<audio id="bg-audio" loop preload="auto">
+  <source src="https://files.catbox.moe/yzjmi1.mp3" type="audio/mpeg">
+</audio>
+
 <script>
+// --- XỬ LÝ NHẠC NỀN DI SẢN ---
+(function(){
+  var audio = document.getElementById('bg-audio');
+  var musicBtn = document.getElementById('music-toggle');
+  var musicText = document.getElementById('music-text');
+  var isPlaying = false;
+
+  audio.volume = 0.8; // Đặt âm lượng vừa phải, du dương
+
+  function toggleMusic() {
+    if (isPlaying) {
+      audio.pause();
+      musicBtn.classList.remove('playing');
+      musicText.textContent = 'Bật nhạc';
+      isPlaying = false;
+    } else {
+      audio.play().then(function(){
+        musicBtn.classList.add('playing');
+        musicText.textContent = 'Tắt nhạc';
+        isPlaying = true;
+      }).catch(function(e){
+        console.log("Trình duyệt chặn autoplay:", e);
+      });
+    }
+  }
+
+  musicBtn.addEventListener('click', toggleMusic);
+
+  // Tự động phát nhạc mượt mà khi người dùng có tương tác đầu tiên trên trang
+  function autoPlayOnInteraction() {
+    if (!isPlaying) {
+      audio.play().then(function(){
+        musicBtn.classList.add('playing');
+        musicText.textContent = 'Tắt nhạc';
+        isPlaying = true;
+        window.removeEventListener('click', autoPlayOnInteraction);
+        window.removeEventListener('scroll', autoPlayOnInteraction);
+        window.removeEventListener('keydown', autoPlayOnInteraction);
+      }).catch(function(){});
+    }
+  }
+
+  window.addEventListener('click', autoPlayOnInteraction, {once: true});
+  window.addEventListener('scroll', autoPlayOnInteraction, {once: true});
+  window.addEventListener('keydown', autoPlayOnInteraction, {once: true});
+})();
+
 // --- MULTI-LANGUAGE DICTIONARY ---
 var i18nData = {
   vi: {
@@ -471,15 +552,15 @@ var albumData = {
     {
       url: "https://i.ibb.co/5Wq1qmpT/1791123876230-6054260761147410839-6054260761147410839-c9ba286a07cd2af51ba3390608396979.jpg",
       title: "Đền Mẫu Bắc Lệ Linh Thiêng (Ảnh 1/3)",
-      desc: "Tọa lạc trên đồi cao giữa rừng cây cổ thụ tại xã Tân Thành, Đền Mẫu Bắc Lệ nổi tiếng linh thiêng, là nơi thờ Tam tòa Thánh Mẫu và Chầu Bé Bắc Lệ."
+      desc: "Tọa lạc trên một ngọn đồi yên tĩnh, bao bọc bởi nhiều cây cổ thụ, ngôi đền đã tạo nên một không gian linh thiêng, hài hòa với thiên nhiên. Đền là nơi thờ Tam tòa Thánh Mẫu, Công Đồng Chư thánh và Chầu Bé Bắc Lệ, ngôi đền giữ vai trò quan trọng trong tín ngưỡng Mẫu Tam phủ – Tứ phủ của người Việt. Giá trị này càng được nâng tầm kể từ khi Tín ngưỡng thờ Mẫu được UNESCO công nhận là Di sản Văn hóa phi vật thể của nhân loại vào năm 2016. Từ năm 1992, đền Bắc Lệ đã được công nhận là di tích cấp tỉnh."
     },
     {
-      url: "https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=800&q=80",
+      url: "https://i.ibb.co/SD1q6rsN/den.jpg",
       title: "Không Gian Kiến Trúc Cổ Kính Đền Bắc Lệ (Ảnh 2/3)",
       desc: "Khuôn viên đền giữ trọn nét cổ kính thuần Việt, hài hòa cùng không gian Công viên Địa chất toàn cầu UNESCO Lạng Sơn."
     },
     {
-      url: "https://images.unsplash.com/photo-1508807526345-15e9b5f4eaff?auto=format&fit=crop&w=800&q=80",
+      url: "https://i.ibb.co/j9qFhQFz/le-hoi.jpg",
       title: "Lễ Hội Văn Hóa Đền Bắc Lệ (Ảnh 3/3)",
       desc: "Hàng năm du khách thập phương tụ hội về đây dâng hương chiêm bái, cầu bình an và hòa mình vào không gian di sản tâm linh độc đáo."
     }
