@@ -38,7 +38,6 @@ a{color:inherit}
 .icon-btn{background:var(--surface);border:1px solid var(--line);color:var(--ink);padding:6px 12px;border-radius:999px;cursor:pointer;font-weight:600;font-size:.88rem;display:inline-flex;align-items:center;gap:4px}
 .icon-btn:hover{border-color:var(--primary)}
 
-/* Hiệu ứng nốt nhạc xoay khi đang bật nhạc */
 .music-btn.playing .music-icon{animation:musicSpin 2s infinite linear}
 @keyframes musicSpin{0%{transform:rotate(0deg)} 100%{transform:rotate(360deg)}}
 
@@ -46,12 +45,64 @@ a{color:inherit}
 .book:hover{transform:translateY(-1px)}
 .book:focus-visible,.tab:focus-visible,summary:focus-visible,.icon-btn:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
 
-.hero{position:relative;overflow:hidden;background:linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('background.jpg') center/cover no-repeat;color:#fff;padding:clamp(40px,8vw,88px) clamp(16px,4vw,40px) clamp(90px,12vw,140px)}
+.hero{position:relative;overflow:hidden;background:linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('background.jpg') center/cover no-repeat;color:#fff;padding:clamp(40px,8vw,70px) clamp(16px,4vw,40px) clamp(90px,12vw,130px)}
 .hero-in{max-width:1080px;margin:0 auto;position:relative;z-index:1}
 .hero h1{margin:0 0 12px;font-size:clamp(1.8rem,5vw,3.2rem);line-height:1.15;font-weight:800;max-width:22ch}
 .hero p{margin:0 0 22px;max-width:65ch;font-size:1.05rem;color:#e3f6fc}
-.facts{display:flex;flex-wrap:wrap;gap:10px}
-.facts span{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:6px 14px;font-size:.92rem}
+
+/* NÚT TƯƠNG TÁC TẠI HERO SECTION */
+.hero-pills{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:20px}
+.hero-pill{
+  background:rgba(255,255,255,0.18);
+  border:1px solid rgba(255,255,255,0.4);
+  color:#fff;
+  border-radius:999px;
+  padding:10px 20px;
+  font-size:0.95rem;
+  font-weight:600;
+  cursor:pointer;
+  transition:all 0.25s ease;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  backdrop-filter:blur(6px);
+}
+.hero-pill:hover{
+  background:rgba(255,255,255,0.35);
+  border-color:#fff;
+  transform:translateY(-2px);
+}
+.hero-pill.active{
+  background:var(--sun);
+  border-color:var(--sun);
+  color:var(--sun-ink);
+  box-shadow:0 4px 15px rgba(196,67,43,0.4);
+}
+
+/* KHỐI HIỂN THỊ NỘI DUNG CHI TIẾT TƯƠNG ỨNG */
+.hero-info-card{
+  background:rgba(255,255,255,0.95);
+  color:var(--ink);
+  border-radius:16px;
+  padding:20px 24px;
+  max-width:850px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.3);
+  margin-top:10px;
+  display:none;
+  animation:fadeInUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  backdrop-filter:blur(10px);
+}
+.hero-info-card.active{display:block}
+.hero-info-card h3{margin:0 0 8px;color:var(--primary);font-size:1.25rem;display:flex;align-items:center;gap:8px}
+.hero-info-card p{margin:0 0 10px;color:#333;font-size:0.95rem;line-height:1.5}
+.hero-info-card ul{margin:0;padding-left:20px;color:#444;font-size:0.93rem}
+.hero-info-card li{margin-bottom:6px}
+
+@keyframes fadeInUp{
+  from{opacity:0;transform:translateY(12px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
 .wave{position:absolute;left:0;bottom:-1px;width:100%;height:clamp(50px,8vw,100px);display:block}
 .wave path{fill:var(--bg);transition:fill .3s}
 .wrap{max-width:1080px;margin:0 auto;padding:8px clamp(16px,4vw,40px) 56px;display:grid;grid-template-columns:340px 1fr;gap:32px;align-items:start}
@@ -69,26 +120,12 @@ a{color:inherit}
 .gallery-card{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.05);display:flex;flex-direction:column;cursor:pointer;transition:transform 0.2s, box-shadow 0.2s;position:relative}
 .gallery-card:hover{transform:scale(1.02);box-shadow:0 4px 12px rgba(0,0,0,.15)}
 
-/* KHỐI CHỨA ẢNH LẤP ĐẦY TOÀN BỘ KHUNG (COVER FULL) */
-.gallery-img-wrap{
-  width:100%;
-  height:200px;
-  overflow:hidden;
-  position:relative;
-  background:#000;
-}
-.gallery-card img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  object-position:center;
-  display:block;
-}
-
+.gallery-img-wrap{width:100%;height:200px;overflow:hidden;position:relative;background:#000}
+.gallery-card img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
 .gallery-card p{margin:0;padding:12px;font-size:.88rem;font-weight:600;color:var(--ink);text-align:center;background:var(--surface)}
 .badge-album{position:absolute;top:8px;right:8px;background:rgba(0,0,0,0.65);color:#fff;font-size:0.75rem;padding:3px 8px;border-radius:12px;backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,0.3);z-index:2}
 
-/* Lightbox Popup Album Ảnh Lấp Đầy Tràn Khung */
+/* Lightbox Popup Album Ảnh */
 .lightbox-modal{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.88);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity 0.3s ease;backdrop-filter:blur(5px)}
 .lightbox-modal.active{opacity:1;pointer-events:auto}
 .lightbox-content{max-width:850px;width:100%;background:var(--surface);border-radius:16px;overflow:hidden;box-shadow:0 15px 40px rgba(0,0,0,0.5);display:flex;flex-direction:column;align-items:center;position:relative;border:1px solid var(--line);transform:scale(0.9);transition:transform 0.3s ease}
@@ -124,7 +161,6 @@ details[open] summary::after{content:"–"}
 details p,details ul{margin:0 0 14px;color:var(--muted)}
 details ul{padding-left:20px}
 
-/* CHỈNH SỬA KHỐI CẢO SÁT CHIA 2 MẢNG TRƯỚC VÀ SAU TRẢI NGHIỆM */
 .survey-section{margin-top:22px;display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:16px}
 .survey-card{background:var(--foam);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column;justify-content:space-between;gap:14px;box-shadow:0 2px 6px rgba(0,0,0,0.03)}
 .survey-card h3{margin:0 0 6px;font-size:1.05rem;color:var(--primary)}
@@ -167,7 +203,7 @@ footer{text-align:center;color:var(--muted);font-size:.88rem;padding:24px 16px 3
 </head>
 <body>
 <header class="top">
-  <!-- Trang trí con lân mini trên tên thương hiệu -->
+  <!-- Trang trí con lân mini nhún nhảy -->
   <a class="brand" href="#"><img src="https://i.ibb.co/BK69d163/logo.jpg" alt="Logo Bắc Lệ Sacred Echo"><span class="mini-lan"></span><span> BẮC LỆ - SACRED ECHO</span><span class="mini-lan right"></span></a>
   <div class="nav-controls">
     <button class="icon-btn music-btn" id="music-toggle" aria-label="Bật/Tắt nhạc nền"><span class="music-icon">🎵</span> <span id="music-text">Bật nhạc</span></button>
@@ -181,11 +217,45 @@ footer{text-align:center;color:var(--muted);font-size:.88rem;padding:24px 16px 3
   <div class="hero-in">
     <h1 data-i18n="hero_title">BẮC LỆ - SACRED ECHO: KẾT NỐI VĂN HÓA – KIẾN TẠO TRẢI NGHIỆM</h1>
     <p data-i18n="hero_desc">Hệ sinh thái du lịch cộng đồng xanh & bảo tồn di sản văn hóa phi vật thể tại Đền Mẫu Bắc Lệ (xã Tân Thành, Công viên Địa chất toàn cầu UNESCO Lạng Sơn). Chuyển đổi từ du lịch tâm linh thuần túy sang không gian tương tác "sống cùng di sản".</p>
-    <div class="facts">
-      <span data-i18n="tag_1">Di Sản Sống & Tín Ngưỡng</span>
-      <span data-i18n="tag_2">Thuyết Minh Số Mã QR</span>
-      <span data-i18n="tag_3">Gift Box & Food Box Bản Địa</span>
+    
+    <!-- 3 NÚT TƯƠNG TÁC TẠI HERO -->
+    <div class="hero-pills">
+      <button class="hero-pill" data-target="info-disan">🌿 <span data-i18n="tag_1">Di Sản Sống & Tín Ngưỡng</span></button>
+      <button class="hero-pill" data-target="info-qr">📱 <span data-i18n="tag_2">Thuyết Minh Số Mã QR</span></button>
+      <button class="hero-pill" data-target="info-box">🎁 <span data-i18n="tag_3">Gift Box & Food Box Bản Địa</span></button>
     </div>
+
+    <!-- NỘI DUNG CHI TIẾT TƯƠNG ỨNG KHI BẤM VÀO NÚT -->
+    <div class="hero-info-card" id="info-disan">
+      <h3>🏛️ Di Sản Sống & Tín Ngưỡng Mẫu Tam Phủ</h3>
+      <p>Chuyển đổi từ du lịch dâng hương ngắn hạn sang không gian tương tác <b>"Sống cùng di sản"</b> trực quan:</p>
+      <ul>
+        <li><b>Không gian tâm linh Đền Bắc Lệ:</b> Ngôi đền linh thiêng thuộc CVĐC toàn cầu UNESCO Lạng Sơn, thờ Tam tòa Thánh Mẫu & Chầu Bé Bắc Lệ.</li>
+        <li><b>Workshop di sản thực cảnh:</b> Trực tiếp học gảy Đàn Tính, thực hành Hát Then, Sli, múa Sư tử mèo & giao lưu hát Chầu Văn cùng Nghệ nhân ưu tú bản địa.</li>
+        <li><b>Trải nghiệm văn hóa dân tộc:</b> Mặc trang phục truyền thống Tày – Nùng, đan basket/móc len thổ cẩm & tham gia các trò chơi dân gian.</li>
+      </ul>
+    </div>
+
+    <div class="hero-info-card" id="info-qr">
+      <h3>📱 Giải Pháp Thuyết Minh Số & Mã QR Số Hóa</h3>
+      <p>Ứng dụng công nghệ để biến mỗi địa điểm di tích và sản phẩm bản địa thành một <b>"đại sứ số"</b> truyền tải văn hóa:</p>
+      <ul>
+        <li><b>Thuyết minh đa ngôn ngữ:</b> Quét mã QR để nghe thuyết minh số hóa sâu sắc về lịch sử kiến trúc Đền Mẫu Bắc Lệ và các điểm di sản lân cận.</li>
+        <li><b>Lưu trữ tư liệu di sản:</b> Thư viện số lưu trữ video nghệ nhân biểu diễn Hát Then, Chầu Văn, giúp du khách lưu giữ kỷ niệm mọi lúc mọi nơi.</li>
+        <li><b>Giáo dục liên môn STEM:</b> Tích hợp bài học Lịch sử, Địa lý, Tiếng Anh cho học sinh – sinh viên trải nghiệm thực tế.</li>
+      </ul>
+    </div>
+
+    <div class="hero-info-card" id="info-box">
+      <h3>🎁 Chuỗi Gift Box Di Sản & Food Box Nông Sản QR</h3>
+      <p>Nâng tầm đặc sản OCOP và đồ thủ công Lạng Sơn thành bộ quà tặng du lịch sang trọng, tinh tế:</p>
+      <ul>
+        <li><b>Gift Box Di Sản:</b> Mô hình Đàn Tính mini handmade, túi thơm thảo mộc người Dao, móc khóa búp bê Tày-Nùng & thẻ thuyết minh QR.</li>
+        <li><b>Food Box Nông Sản Bản Địa:</b> Nông sản sạch đạt chuẩn OCOP 3–4 sao (vườn cam Tân Thành, thạch đen, lợn quay, măng ớt, nông sản khô).</li>
+        <li><b>Giá trị sinh kế bền vững:</b> Bao tiêu nông sản cho các HTX & hộ dân địa phương, tạo việc làm nâng cao thu nhập cho bà con xã Tân Thành.</li>
+      </ul>
+    </div>
+
   </div>
   <svg class="wave" viewBox="0 0 1200 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,60 C150,100 200,20 450,55 C600,90 750,20 900,50 C1050,80 1120,40 1200,55 L1200,100 L0,100 Z"/></svg>
 </section>
@@ -280,7 +350,6 @@ footer{text-align:center;color:var(--muted);font-size:.88rem;padding:24px 16px 3
 
     <!-- MẢNG KHẢO SÁT CHIA LÀM 2 BÊN TRƯỚC VÀ SAU TRẢI NGHIỆM -->
     <div class="survey-section">
-      <!-- Mảng bên trái: Trước trải nghiệm -->
       <div class="survey-card">
         <div>
           <h3 data-i18n="survey_pre_title">📋 Khảo Sát Trước Trải Nghiệm</h3>
@@ -289,7 +358,6 @@ footer{text-align:center;color:var(--muted);font-size:.88rem;padding:24px 16px 3
         <a class="btn-survey" href="https://forms.gle/gBGSanfJTKeCTQzd7" target="_blank">📝 <span data-i18n="btn_survey_pre">Làm Khảo Sát Trước</span></a>
       </div>
 
-      <!-- Mảng bên phải: Sau trải nghiệm -->
       <div class="survey-card">
         <div>
           <h3 data-i18n="survey_post_title">⭐ Khảo Sát Sau Trải Nghiệm</h3>
@@ -307,16 +375,12 @@ footer{text-align:center;color:var(--muted);font-size:.88rem;padding:24px 16px 3
 <div class="lightbox-modal" id="lightbox-modal">
   <div class="lightbox-content">
     <button class="lightbox-close" id="lightbox-close" aria-label="Đóng">&times;</button>
-    
-    <!-- Khung Slideshow Ảnh -->
     <div class="lightbox-slider">
       <button class="slider-btn prev" id="slider-prev">◄</button>
       <img id="lightbox-img" src="" alt="Hình ảnh di sản">
       <button class="slider-btn next" id="slider-next">►</button>
       <div class="slider-dots" id="slider-dots"></div>
     </div>
-
-    <!-- Thông tin chú thích dưới ảnh -->
     <div class="lightbox-info">
       <h3 class="lightbox-title" id="lightbox-title">Tiêu đề ảnh</h3>
       <div class="lightbox-desc" id="lightbox-desc">Lời mô tả bức ảnh...</div>
@@ -334,10 +398,36 @@ footer{text-align:center;color:var(--muted);font-size:.88rem;padding:24px 16px 3
 
 <!-- THẺ AUDIO PHÁT NHẠC NỀN -->
 <audio id="bg-audio" loop preload="auto">
-  <source src="https://files.catbox.moe/yzjmi1.mp3" type="audio/mpeg">
+  <source src="https://actions.google.com/sounds/v1/ambiences/wind_chimes.ogg" type="audio/ogg">
+  <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf756.mp3" type="audio/mpeg">
 </audio>
 
 <script>
+// --- XỬ LÝ SỰ KIỆN CLICK 3 NÚT HERO PILLS ---
+(function(){
+  var pills = document.querySelectorAll('.hero-pill');
+  var infoCards = document.querySelectorAll('.hero-info-card');
+
+  pills.forEach(function(pill){
+    pill.addEventListener('click', function(e){
+      e.stopPropagation();
+      var targetId = pill.getAttribute('data-target');
+      var targetCard = document.getElementById(targetId);
+
+      if (pill.classList.contains('active')) {
+        pill.classList.remove('active');
+        if (targetCard) targetCard.classList.remove('active');
+      } else {
+        pills.forEach(function(p){ p.classList.remove('active'); });
+        infoCards.forEach(function(c){ c.classList.remove('active'); });
+
+        pill.classList.add('active');
+        if (targetCard) targetCard.classList.add('active');
+      }
+    });
+  });
+})();
+
 // --- XỬ LÝ NHẠC NỀN DI SẢN ---
 (function(){
   var audio = document.getElementById('bg-audio');
@@ -345,7 +435,7 @@ footer{text-align:center;color:var(--muted);font-size:.88rem;padding:24px 16px 3
   var musicText = document.getElementById('music-text');
   var isPlaying = false;
 
-  audio.volume = 0.8; // Đặt âm lượng vừa phải, du dương
+  audio.volume = 0.8; // Âm lượng 80% vang rộn rã
 
   function toggleMusic() {
     if (isPlaying) {
@@ -366,7 +456,6 @@ footer{text-align:center;color:var(--muted);font-size:.88rem;padding:24px 16px 3
 
   musicBtn.addEventListener('click', toggleMusic);
 
-  // Tự động phát nhạc mượt mà khi người dùng có tương tác đầu tiên trên trang
   function autoPlayOnInteraction() {
     if (!isPlaying) {
       audio.play().then(function(){
@@ -719,7 +808,7 @@ var albumData = {
   });
 })();
 
-// --- CHATBOT THÔNG MINH ĐÃ TỐI ƯU NHẬN DIỆN CHIP & ICON ---
+// --- CHATBOT THÔNG MINH ---
 (function(){
   var fab=document.getElementById('fab'),chat=document.getElementById('chat'),cl=document.getElementById('cl'),cf=document.getElementById('cf'),ci=document.getElementById('ci'),cx=document.getElementById('cx'),cs=document.getElementById('cs');
   var greeted = false;
@@ -825,27 +914,27 @@ var albumData = {
   }
 
   function renderChips(chipList) {
-  var oldChips = cl.querySelector('.chips');
-  if(oldChips) oldChips.remove();
+    var oldChips = cl.querySelector('.chips');
+    if(oldChips) oldChips.remove();
 
-  if(!chipList || chipList.length === 0) return;
+    if(!chipList || chipList.length === 0) return;
 
-  var chips = document.createElement('div');
-  chips.className = 'chips';
+    var chips = document.createElement('div');
+    chips.className = 'chips';
 
-  chipList.forEach(function(q){
-    var b = document.createElement('button');
-    b.type = 'button';
-    b.textContent = q;
-    b.onclick = function(){
-      var textToSend = q.replace(/[\u{1F300}-\u{1F9FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]|[\u{FE00}-\u{FE0F}]/gu, '').trim();
-      handleSend(textToSend);
-    };
-    chips.appendChild(b);
-  });
-  cl.appendChild(chips);
-  cl.scrollTop = cl.scrollHeight;
-}
+    chipList.forEach(function(q){
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = q;
+      b.onclick = function(){
+        var textToSend = q.replace(/[\u{1F300}-\u{1F9FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]|[\u{FE00}-\u{FE0F}]/gu, '').trim();
+        handleSend(textToSend);
+      };
+      chips.appendChild(b);
+    });
+    cl.appendChild(chips);
+    cl.scrollTop = cl.scrollHeight;
+  }
 
   function processUserInput(userInput) {
     var rawInput = userInput.trim();
